@@ -33,9 +33,9 @@ private:
     char section;
     char gender;
     int birthYear;
-    char dept1[3];
-    char dept2[3];
-    char dept3[3];
+    char subj1[3]; //might get renamed to subj
+    char subj2[3];
+    char subj3[3];
 
 public:
     Student() // default constructor
@@ -46,9 +46,9 @@ public:
         section = ' ';
         gender = ' ';
         birthYear = 0000;
-        dept1[0] = dept1[1] = dept1[2] = 'A';
-        dept2[0] = dept2[1] = dept2[2] = 'A';
-        dept3[0] = dept3[1] = dept3[2] = 'A';
+        subj1[0] = subj1[1] = subj1[2] = 'A';
+        subj2[0] = subj2[1] = subj2[2] = 'A';
+        subj3[0] = subj3[1] = subj3[2] = 'A';
     }
 
     //modiy parameters any time
@@ -64,23 +64,33 @@ public:
 
 void Student::createStudent()
 {
+    int t;
     //consider piping output to csv file?
     cout << "\n CREATING A STUDENT..." << endl;
     cout << "Enter Student Name: ";
     getline(cin, Name);
-    //enter uniqueID
+    //enter uniqueID, if not uq, exit this func
+    cout << "\n Enter Unique Student ID : ";
+    cin >> t; // store input temporaily
+    if (isUniqueID)
+        uniqueSID = t;
+    else
+    {
+        cout << "\n ID entered already exists.";
+        exit(0);
+    }
     cout << "\nEnter age : ";
     cin >> age;
     cout << "\nEnter Section : ";
     cin >> section;
     cout << "\n Enter gender: ";
     cin >> gender;
-    cout << "\n Dept1 : ";
-    cin >> dept1;
-    cout << "\n Department 2 : ";
-    cin >> dept2;
-    cout << "\nDepartment 3 : ";
-    cin >> dept3;
+    cout << "\n Subject 1 : ";
+    cin >> subj1;
+    cout << "\n Subject 2 : ";
+    cin >> subj2;
+    cout << "\n Subject 3 : ";
+    cin >> subj3;
     cout << " * STUDENT DATA CREATED SUCCESFULLY \n";
 }
 void Student::displayStudent(Student obj) // displays one student
@@ -90,9 +100,9 @@ void Student::displayStudent(Student obj) // displays one student
     cout << " Age : " << obj.age << endl;
     cout << "Section : " << obj.section << endl;
     cout << "Gender : " << obj.gender << endl;
-    cout << "Department 1 : " << obj.dept1 << endl;
-    cout << "Department 2 : " << obj.dept2 << endl;
-    cout << "Department 3 : " << obj.dept3 << endl;
+    cout << "Subjectt 1 : " << obj.subj1 << endl;
+    cout << "Subeject 2 : " << obj.subj2 << endl;
+    cout << "Subject 3 : " << obj.subj3 << endl;
 }
 bool Student::isUniqueID(int id)
 {
@@ -110,6 +120,16 @@ void Student::printStdDatabase(Student StudentObj[])
 class Faculty
 {
 private:
+    string Name;
+    static int facultyCount;             // stores count of students as ID
+    static unordered_set<int> StudentID; //hash set
+    int uniqueFID;                       // unique student ID
+    int age;
+    //char section;
+    char gender;
+    int birthYear;
+    char dept[3];
+
 public:
 };
 
