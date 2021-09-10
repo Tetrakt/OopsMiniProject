@@ -15,7 +15,8 @@
 #include <conio.h>
 #include <stdio.h>
 #include <cstdlib>
-
+// CSV ? Maybe even see how much data is there??
+// non temporary data storage mgmt
 #define STUDENTS_COUNT 100
 #define FACULTY_COUNT 10
 
@@ -27,6 +28,7 @@ private:
     string Name;
     static int studentCount;             // stores count of students as ID
     static unordered_set<int> StudentID; //hash set
+    int uniqueSID;                       // unique student ID
     int age;
     char section;
     char gender;
@@ -51,11 +53,13 @@ public:
 
     //modiy parameters any time
     void createStudent();
-    void displayStudent();
+    void displayStudent(Student);
+    void printStdDatabase(Student *); // prints all
     void modifyStudent();
-    void gradeSummary();
-    void printDepartments();
-    bool isUniqueID();
+    // void gradeSummary();
+    void printDepartments(); //depts for a student
+    void deleteStudent();
+    bool isUniqueID(int);
 };
 
 void Student::createStudent()
@@ -79,17 +83,30 @@ void Student::createStudent()
     cin >> dept3;
     cout << " * STUDENT DATA CREATED SUCCESFULLY \n";
 }
-void Student::displayStudent()
+void Student::displayStudent(Student obj) // displays one student
 {
-    cout << "Name : " << Name << endl;
+    cout << "Name : " << obj.Name << endl;
     //cout unique id
-    cout << " Age : " << age << endl;
-    cout << "Section : " << section << endl;
-    cout << "Gender : " << gender << endl;
-    cout << "Department 1 : " << dept1 << endl;
-    cout << "Department 2 : " << dept2 << endl;
-    cout << "Department 3 : " << dept3 << endl;
+    cout << " Age : " << obj.age << endl;
+    cout << "Section : " << obj.section << endl;
+    cout << "Gender : " << obj.gender << endl;
+    cout << "Department 1 : " << obj.dept1 << endl;
+    cout << "Department 2 : " << obj.dept2 << endl;
+    cout << "Department 3 : " << obj.dept3 << endl;
 }
+bool Student::isUniqueID(int id)
+{
+    if (StudentID.find(id) == StudentID.end())
+        return false;
+    else
+        return true;
+}
+void Student::printStdDatabase(Student StudentObj[])
+{
+    for (int i = 0; i < studentCount; i++)
+        displayStudent(StudentObj[i]);
+}
+
 class Faculty
 {
 private:
@@ -100,4 +117,7 @@ void main()
 {
     Student StudentObj[STUDENTS_COUNT];
     Faculty FacultyObj[FACULTY_COUNT];
+    //menu to view student or faculty data base
+    //password protected?
+    //then call related functions
 }
