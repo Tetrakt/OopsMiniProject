@@ -25,7 +25,7 @@ class Student
 {
 private:
     string Name;
-    static int uniqueID; // stores count of students as ID
+    static int studentCount; // stores count of students as ID
     int age;
     char section;
     char gender;
@@ -37,7 +37,7 @@ private:
 public:
     Student() // default constructor
     {
-        uniqueID = 0;
+        studentCount = 0;
         Name = " ";
         age = 0;
         section = ' ';
@@ -59,6 +59,7 @@ void Student::createStudent()
     cout << "\n CREATING A STUDENT..." << endl;
     cout << "Enter Student Name: ";
     getline(cin, Name);
+    //enter uniqueID
     cout << "\nEnter age : ";
     cin >> age;
     cout << "\nEnter Section : ";
@@ -67,8 +68,22 @@ void Student::createStudent()
     cin >> gender;
     cout << "\n Dept1 : ";
     cin >> dept1;
+    cout << "\n Department 2 : ";
+    cin >> dept2;
+    cout << "\nDepartment 3 : ";
+    cin >> dept3;
 }
-
+void Student::displayStudent()
+{
+    cout << "Name : " << Name << endl;
+    //cout unique id
+    cout << " Age : " << age << endl;
+    cout << "Section : " << section << endl;
+    cout << "Gender : " << gender << endl;
+    cout << "Department 1 : " << dept1 << endl;
+    cout << "Department 2 : " << dept2 << endl;
+    cout << "Department 3 : " << dept3 << endl;
+}
 class Faculty
 {
 private:
