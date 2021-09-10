@@ -25,7 +25,8 @@ class Student
 {
 private:
     string Name;
-    static int studentCount; // stores count of students as ID
+    static int studentCount;             // stores count of students as ID
+    static unordered_set<int> StudentID; //hash set
     int age;
     char section;
     char gender;
@@ -47,15 +48,19 @@ public:
         dept2[0] = dept2[1] = dept2[2] = 'A';
         dept3[0] = dept3[1] = dept3[2] = 'A';
     }
+
+    //modiy parameters any time
     void createStudent();
     void displayStudent();
     void modifyStudent();
     void gradeSummary();
     void printDepartments();
+    bool isUniqueID();
 };
 
 void Student::createStudent()
 {
+    //consider piping output to csv file?
     cout << "\n CREATING A STUDENT..." << endl;
     cout << "Enter Student Name: ";
     getline(cin, Name);
@@ -72,6 +77,7 @@ void Student::createStudent()
     cin >> dept2;
     cout << "\nDepartment 3 : ";
     cin >> dept3;
+    cout << " * STUDENT DATA CREATED SUCCESFULLY \n";
 }
 void Student::displayStudent()
 {
