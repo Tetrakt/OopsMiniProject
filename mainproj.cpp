@@ -59,7 +59,7 @@ public:
     // void gradeSummary();
     void printDepartments(); //depts for a student
     void deleteStudent();
-    bool isUniqueID(int);
+    bool isUniqueSID(int);
 };
 
 void Student::createStudent()
@@ -72,7 +72,7 @@ void Student::createStudent()
     //enter uniqueID, if not uq, exit this func
     cout << "\n Enter Unique Student ID : ";
     cin >> t; // store input temporaily
-    if (isUniqueID)
+    if (isUniqueSID(t))
         uniqueSID = t;
     else
     {
@@ -104,7 +104,7 @@ void Student::displayStudent(Student obj) // displays one student
     cout << "Subeject 2 : " << obj.subj2 << endl;
     cout << "Subject 3 : " << obj.subj3 << endl;
 }
-bool Student::isUniqueID(int id)
+bool Student::isUniqueSID(int id)
 {
     if (StudentID.find(id) == StudentID.end())
         return false;
@@ -122,7 +122,7 @@ class Faculty
 private:
     string Name;
     static int facultyCount;             // stores count of students as ID
-    static unordered_set<int> StudentID; //hash set
+    static unordered_set<int> FacultyID; //hash set
     int uniqueFID;                       // unique student ID
     int age;
     //char section;
@@ -131,7 +131,22 @@ private:
     char dept[3];
 
 public:
+    void createFaculty();
+    void displayFaculty(Faculty);
+    void printFctDatabase();
+    void modifyFaculty(Faculty);
+    // void gradeSummary();
+    void printDepartment(); //depts for a faculty
+    void deleteFaculty();
+    bool isUniqueFID(int);
 };
+bool Faculty::isUniqueFID(int id)
+{
+    if (FacultyID.find(id) == FacultyID.end())
+        return false;
+    else
+        return true;
+}
 
 void main()
 {
