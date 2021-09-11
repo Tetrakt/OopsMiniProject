@@ -5,6 +5,7 @@
 * teacher guardian implementation?
 * grades of students, calculate max, min, etc
 * fixed size of students and faculty,
+* added few changes
 */
 #include <iostream>
 #include <bits/stdc++.h>
@@ -129,13 +130,22 @@ private:
     char gender;
     int birthYear;
     char dept[3];
+    int salary;
 
 public:
+    Faculty()
+    {
+        Name = " ";
+        age = 0;
+        gender = ' ';
+        birthYear = 0000;
+        dept[0] = dept[1] = dept[2] = 'A';
+        salary = 0;
+    }
     void createFaculty();
     void displayFaculty(Faculty);
     void printFctDatabase();
     void modifyFaculty(Faculty);
-    // void gradeSummary();
     void printDepartment(); //depts for a faculty
     void deleteFaculty();
     bool isUniqueFID(int);
