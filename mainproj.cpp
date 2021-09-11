@@ -56,10 +56,10 @@ public:
     void createStudent();
     void displayStudent(Student);
     void printStdDatabase(Student *); // prints all
-    void modifyStudent();
+    void modifyStudent(Student);
     // void gradeSummary();
     void printDepartments(); //depts for a student
-    void deleteStudent();
+    //void deleteStudent();
     bool isUniqueSID(int);
 };
 
@@ -105,6 +105,17 @@ void Student::displayStudent(Student obj) // displays one student
     cout << "Subeject 2 : " << obj.subj2 << endl;
     cout << "Subject 3 : " << obj.subj3 << endl;
 }
+void Student::modifyStudent(Student obj) // or student id
+{
+    //recieves uid, then gives list of options that can be updated
+    // gives list as to what can be changed.
+    // then changes accordingly, uses switch case
+}
+void Student::printStdDatabase(Student StudentObj[])
+{
+    for (int i = 0; i < studentCount; i++)
+        displayStudent(StudentObj[i]);
+}
 bool Student::isUniqueSID(int id)
 {
     if (StudentID.find(id) == StudentID.end())
@@ -112,12 +123,6 @@ bool Student::isUniqueSID(int id)
     else
         return true;
 }
-void Student::printStdDatabase(Student StudentObj[])
-{
-    for (int i = 0; i < studentCount; i++)
-        displayStudent(StudentObj[i]);
-}
-
 class Faculty
 {
 private:
