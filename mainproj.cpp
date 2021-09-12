@@ -112,6 +112,28 @@ void Student::modifyStudent(Student obj) // or student id
     //recieves uid, then gives list of options that can be updated
     // gives list as to what can be changed.
     // then changes accordingly, uses switch case
+    int ch;
+    cout << "*STUDENT TO BE MODIFIED*" << endl;
+    displayStudent(obj);
+    cout << "\n menu list" << endl;
+    cout << " 1. Section " << endl;
+    cout << " 2. Subject 1 " << endl;
+    cout << " 3. Subject 2 " << endl;
+    cout << " 4. Subject 3 " << endl;
+    cin >> ch;
+    switch (ch)
+    {
+    case 1:
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    case 4:
+        break;
+    default:
+        break;
+    }
 }
 void Student::printStdDatabase(Student StudentObj[])
 {
@@ -151,7 +173,7 @@ public:
     }
     void createFaculty();
     void displayFaculty(Faculty);
-    void printFctDatabase();
+    void printFctDatabase(Faculty FacultyObj[]);
     void modifyFaculty(Faculty);
     void printDepartment(); //depts for a faculty
     void deleteFaculty();
@@ -186,6 +208,24 @@ void Faculty::createFaculty()
     cin >> salary;
     cout << " * FACULTY DATA CREATED SUCCESFULLY \n";
 }
+
+void Faculty::displayFaculty(Faculty obj)
+{
+    cout << "Name : " << obj.Name << endl;
+    cout << " Unique Faculty ID : " << obj.uniqueFID << endl;
+    cout << " Age : " << obj.age << endl;
+    cout << "Birth Year : " << obj.birthYear << endl;
+    cout << "Gender : " << obj.gender << endl;
+    cout << "Department 1 : " << obj.dept << endl;
+    cout << "Salary : " << obj.salary << endl;
+}
+
+void Faculty::printFctDatabase(Faculty FacultyObj[])
+{
+    for (int i = 0; i < facultyCount; i++)
+        displayFaculty(FacultyObj[i]);
+}
+
 bool Faculty::isUniqueFID(int id)
 {
     if (FacultyID.find(id) == FacultyID.end())
