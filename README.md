@@ -9,7 +9,12 @@ mainproj.cpp is the main file, rest are test files/ refernces to aid .
 usefull commands
 
 git commit -a -m "message"
-this commits changes locally to the repo. basically saves the data
+this commits all changes across all filess locally to the repo. basically saves the data
+
+git add file.txt
+git commit -m " message_file"
+git push
+these will allow to add changes to only one file, commit and then push the changes.
 
 git push
 this pushes changes to the main repo
