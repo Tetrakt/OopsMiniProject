@@ -82,6 +82,8 @@ void Student::createStudent()
     }
     cout << "\nEnter age : ";
     cin >> age;
+    cout << "\nEnter Birth Year";
+    cin >> birthYear;
     cout << "\nEnter Section : ";
     cin >> section;
     cout << "\n Enter gender: ";
@@ -155,6 +157,35 @@ public:
     void deleteFaculty();
     bool isUniqueFID(int);
 };
+void Faculty::createFaculty()
+{
+    int t;
+    //consider piping output to csv file?
+    cout << "\n CREATING A Faculty..." << endl;
+    cout << "Enter Faculty Name: ";
+    getline(cin, Name);
+    //enter uniqueID, if not uq, exit this func
+    cout << "\n Enter Unique Faculty ID : ";
+    cin >> t; // store input temporaily
+    if (isUniqueFID(t))
+        uniqueFID = t;
+    else
+    {
+        cout << "\n ID entered already exists.";
+        exit(0);
+    }
+    cout << "\nEnter age : ";
+    cin >> age;
+    cout << "\n Enter Birth Year : ";
+    cin >> birthYear;
+    cout << "\n Enter gender: ";
+    cin >> gender;
+    cout << "\n Department : ";
+    cin >> dept;
+    cout << "\n Enter salary : ";
+    cin >> salary;
+    cout << " * FACULTY DATA CREATED SUCCESFULLY \n";
+}
 bool Faculty::isUniqueFID(int id)
 {
     if (FacultyID.find(id) == FacultyID.end())
