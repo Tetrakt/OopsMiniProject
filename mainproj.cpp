@@ -53,7 +53,6 @@ public:
         subj3[0] = subj3[1] = subj3[2] = 'A';
     }
 
-    //modiy parameters any time
     void createStudent();
     void displayStudent(Student);
     void printStdDatabase(Student *); // prints all
@@ -61,7 +60,7 @@ public:
     void updateGrades(Student);
     void gradeSummary(Student);
     void printDepartments(); //depts for a student
-    //void deleteStudent();
+    void deleteStudent(Student);
     bool isUniqueSID(int);
 };
 
@@ -108,6 +107,11 @@ void Student::displayStudent(Student obj) // displays one student
     cout << "Subjectt 1 : " << obj.subj1 << endl;
     cout << "Subeject 2 : " << obj.subj2 << endl;
     cout << "Subject 3 : " << obj.subj3 << endl;
+}
+void Student::printStdDatabase(Student StudentObj[])
+{
+    for (int i = 0; i < studentCount; i++)
+        displayStudent(StudentObj[i]);
 }
 void Student::modifyStudent(Student obj) // or student id
 {
@@ -196,10 +200,11 @@ void Student::gradeSummary(Student obj)
     cout << "Average Marks : " << avg;
     cout << "Overall Percentage : " << gradePercent << " % " << endl;
 }
-void Student::printStdDatabase(Student StudentObj[])
+void Student::deleteStudent(Student obj) //todo
 {
-    for (int i = 0; i < studentCount; i++)
-        displayStudent(StudentObj[i]);
+    // i have no clue
+    // ig we can set data to default or null and
+    //studentCount - 1
 }
 bool Student::isUniqueSID(int id)
 {
@@ -287,7 +292,39 @@ void Faculty::printFctDatabase(Faculty FacultyObj[])
     for (int i = 0; i < facultyCount; i++)
         displayFaculty(FacultyObj[i]);
 }
-
+void Faculty::modifyFaculty(Faculty obj) // or student id
+{
+    //recieves uid, then gives list of options that can be updated
+    // gives list as to what can be changed.
+    // then changes accordingly, uses switch case
+    int ch;
+    cout << "*Faculty TO BE MODIFIED*" << endl;
+    displayFaculty(obj);
+    cout << "\n menu list" << endl;
+    cout << " 1. Department " << endl;
+    cout << " 2. Salary " << endl;
+    cin >> ch;
+    switch (ch)
+    {
+    case 1:
+    {
+        cout << "Enter new Department : ";
+        cin >> obj.dept;
+    }
+    break;
+    case 2:
+    {
+        cout << "Enter new Salary : ";
+        cin >> obj.salary;
+    }
+    break;
+    default:
+    {
+        cout << "Invalid Option, Please try again ";
+    }
+    break;
+    }
+}
 bool Faculty::isUniqueFID(int id)
 {
     if (FacultyID.find(id) == FacultyID.end())
