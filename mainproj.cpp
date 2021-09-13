@@ -59,7 +59,7 @@ public:
     void printStdDatabase(Student *); // prints all
     void modifyStudent(Student);
     void updateGrades(Student);
-    // void gradeSummary();
+    void gradeSummary(Student);
     void printDepartments(); //depts for a student
     //void deleteStudent();
     bool isUniqueSID(int);
@@ -156,7 +156,6 @@ void Student::modifyStudent(Student obj) // or student id
     break;
     }
 }
-
 void Student::updateGrades(Student obj)
 {
     int t;
@@ -173,6 +172,30 @@ void Student::updateGrades(Student obj)
         }
     }
 }
+void Student::gradeSummary(Student obj)
+{
+    int sum = 0, min = 0, max = 0, i;
+    min = max = obj.grades[0];
+    float gpa, gradePercent, avg;
+    for (i = 0; i < 6; i++)
+    {
+        if (obj.grades[i] > max)
+            max = obj.grades[i];
+        if (obj.grades[i] < min)
+            min = obj.grades[i];
+        sum += obj.grades[i];
+    }
+    avg = (float)sum / 6;
+    gradePercent = (float)sum / 600.0;
+    gpa = gradePercent / 10.0;
+
+    cout << "Grade Summary of Student : " << obj.Name << endl;
+    cout << "GPA : " << gpa << endl;
+    cout << "Highest Marks : " << max << endl;
+    cout << "Lowest Marks : " << min << endl;
+    cout << "Average Marks : " << avg;
+    cout << "Overall Percentage : " << gradePercent << " % " << endl;
+}
 void Student::printStdDatabase(Student StudentObj[])
 {
     for (int i = 0; i < studentCount; i++)
@@ -185,6 +208,7 @@ bool Student::isUniqueSID(int id)
     else
         return true;
 }
+
 class Faculty
 {
 private:
