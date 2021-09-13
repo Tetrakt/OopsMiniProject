@@ -37,6 +37,7 @@ private:
     char subj1[3]; //might get renamed to subj
     char subj2[3];
     char subj3[3];
+    int grades[6];
 
 public:
     Student() // default constructor
@@ -57,6 +58,7 @@ public:
     void displayStudent(Student);
     void printStdDatabase(Student *); // prints all
     void modifyStudent(Student);
+    void updateGrades(Student);
     // void gradeSummary();
     void printDepartments(); //depts for a student
     //void deleteStudent();
@@ -124,15 +126,51 @@ void Student::modifyStudent(Student obj) // or student id
     switch (ch)
     {
     case 1:
-        break;
+    {
+        cout << "Enter new Section : ";
+        cin >> obj.section;
+    }
+    break;
     case 2:
-        break;
+    {
+        cout << "Enter new subject 1 : ";
+        cin >> obj.subj1;
+    }
+    break;
     case 3:
-        break;
+    {
+        cout << "Enter new Subject 2 : ";
+        cin >> obj.subj2;
+    }
+    break;
     case 4:
-        break;
+    {
+        cout << "Enter new Subject 3 : ";
+        cin >> obj.subj3;
+    }
+    break;
     default:
-        break;
+    {
+        cout << "Invalid Option, Please try again ";
+    }
+    break;
+    }
+}
+
+void Student::updateGrades(Student obj)
+{
+    int t;
+    cout << "\n Enter the marks of 6 subjects (0-100) ";
+    for (int i = 0; i < 6; i++)
+    {
+        cin >> t;
+        if (t >= 0 && t <= 100)
+            obj.grades[i] = t;
+        else
+        {
+            cout << "invalid input,try again \n";
+            i--;
+        }
     }
 }
 void Student::printStdDatabase(Student StudentObj[])
