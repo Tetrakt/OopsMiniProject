@@ -21,8 +21,12 @@
 #define STUDENTS_COUNT 100
 #define FACULTY_COUNT 10
 
-using namespace std;
+#define FDD_PASSKEY "Faculty@737" //passkey for faculty db
+#define SDB_PASSKEY "Student#000" //passkey for Student db
 
+using namespace std;
+// NEED TO REWORK UNIQUE ID SYSTEM
+//AS WELL AS THE OBJ SENT!!!!!
 class Student
 {
 private:
@@ -333,6 +337,16 @@ bool Faculty::isUniqueFID(int id)
         return true;
 }
 
+void printStudentMenu()
+{
+    cout << "1 enter data" << endl;
+    cout << "2 print all" << endl;
+    cout << "3 select 1" << endl; // stuck here on input for key
+    cout << "4 modify" << endl;
+    cout << "5 update grades" << endl;
+    cout << " 6 grade summary" << endl;
+    cout << "7 delete student" << endl;
+}
 void main()
 {
     Student StudentObj[STUDENTS_COUNT];
@@ -340,4 +354,19 @@ void main()
     //menu to view student or faculty data base
     //password protected?
     //then call related functions
+    int ch;
+    cout << "Student DB" << endl;
+    while (ch != 0) // exit is zero is given
+    {
+        printStudentMenu();
+        cin >> ch;
+        switch (ch)
+        {
+        case 1:
+            break;
+
+        default:
+            break;
+        }
+    }
 }
