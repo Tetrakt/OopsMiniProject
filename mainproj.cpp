@@ -29,11 +29,12 @@ using namespace std;
 //AS WELL AS THE OBJ SENT!!!!!
 class Student
 {
-private:
+private: // merge studentCount into hashmap
     string Name;
     static int studentCount;             // stores count of students as ID
-    static unordered_set<int> StudentID; //hash set
+    static unordered_set<int> StudentID; //for reg id only
     int uniqueSID;                       // unique student ID
+    int rollID;
     int age;
     char section;
     char gender;
@@ -64,7 +65,6 @@ public:
     void updateGrades(Student);
     void gradeSummary(Student);
     void printDepartments(); //depts for a student
-    void deleteStudent(Student);
     bool isUniqueSID(int);
 };
 
@@ -99,12 +99,16 @@ void Student::createStudent()
     cin >> subj2;
     cout << "\n Subject 3 : ";
     cin >> subj3;
+    studentCount++;
+    rollID = studentCount;
     cout << " * STUDENT DATA CREATED SUCCESFULLY \n";
 }
 void Student::displayStudent(Student obj) // displays one student
 {
     cout << "Name : " << obj.Name << endl;
     //cout unique id
+    cout << "Unique ID : " << obj.uniqueSID << endl;
+    cout << "Roll Number : " << obj.rollID << endl;
     cout << " Age : " << obj.age << endl;
     cout << "Section : " << obj.section << endl;
     cout << "Gender : " << obj.gender << endl;
@@ -204,12 +208,7 @@ void Student::gradeSummary(Student obj)
     cout << "Average Marks : " << avg;
     cout << "Overall Percentage : " << gradePercent << " % " << endl;
 }
-void Student::deleteStudent(Student obj) //todo
-{
-    // i have no clue
-    // ig we can set data to default or null and
-    //studentCount - 1
-}
+
 bool Student::isUniqueSID(int id)
 {
     if (StudentID.find(id) == StudentID.end())
@@ -354,7 +353,8 @@ void main()
     //menu to view student or faculty data base
     //password protected?
     //then call related functions
-    int ch;
+    int t1, t2, t3; //rename
+    int ch = 1;
     cout << "Student DB" << endl;
     while (ch != 0) // exit is zero is given
     {
@@ -363,8 +363,20 @@ void main()
         switch (ch)
         {
         case 1:
+            StudentObj->createStudent();
             break;
-
+        case 2:
+            StudentObj->printStdDatabase(StudentObj); //pass array of objs
+            break;
+        case 3:
+            cout << "Enter Roll Number 1 to student count : ";
+            cin >> t1;
+            StudentObj->displayStudent(StudentObj[t1]); //check
+            break;
+        case 4:
+            cout << "Enter Roll Number to modify : ";
+            cin >> t1;
+            StudentObj->modifyStudent(StudentObj[t1]);
         default:
             break;
         }
