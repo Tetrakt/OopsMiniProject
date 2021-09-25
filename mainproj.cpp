@@ -345,6 +345,7 @@ void printStudentMenu()
     cout << "5 update grades" << endl;
     cout << " 6 grade summary" << endl;
     cout << "7 delete student" << endl;
+    cout << "8 Exit " << endl;
 }
 void main()
 {
@@ -353,10 +354,11 @@ void main()
     //menu to view student or faculty data base
     //password protected?
     //then call related functions
+    //NEED A LOOP HERE FOR IT TO STAY IN THE SELECTION
     int t1, t2, t3; //rename
-    int ch = 1;
+    int ch = 0;
     cout << "Student DB" << endl;
-    while (ch != 0) // exit is zero is given
+    while (ch != 8) // exit is zero is given
     {
         printStudentMenu();
         cin >> ch;
@@ -377,6 +379,16 @@ void main()
             cout << "Enter Roll Number to modify : ";
             cin >> t1;
             StudentObj->modifyStudent(StudentObj[t1]);
+        case 5:
+            cout << "Enter roll id to update grades : ";
+            cin >> t1;
+            StudentObj->updateGrades(StudentObj[t1]);
+            break;
+        case 6:
+            cout << "Enter roll id for grade Summary : ";
+            cin >> t1;
+            StudentObj->gradeSummary(StudentObj[t1]);
+            break;
         default:
             break;
         }
