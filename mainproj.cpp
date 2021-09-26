@@ -25,11 +25,10 @@
 #define SDB_PASSKEY "Student#000" //passkey for Student db
 
 using namespace std;
-// NEED TO REWORK UNIQUE ID SYSTEM
 //AS WELL AS THE OBJ SENT!!!!!
 class Student
 {
-private: // merge studentCount into hashmap
+private: // merge studentCoun into hashmap
     string Name;
     static int studentCount;             // stores count of students as ID
     static unordered_set<int> StudentID; //for reg id only
@@ -47,7 +46,7 @@ private: // merge studentCount into hashmap
 public:
     Student() // default constructor
     {
-        studentCount = 0;
+        //studentCount = 0;
         Name = " ";
         age = 0;
         section = ' ';
@@ -99,8 +98,8 @@ void Student::createStudent()
     cin >> subj2;
     cout << "\n Subject 3 : ";
     cin >> subj3;
-    studentCount++;
-    rollID = studentCount;
+    Student::studentCount++;
+    rollID = Student::studentCount;
     cout << " * STUDENT DATA CREATED SUCCESFULLY \n";
 }
 void Student::displayStudent(Student obj) // displays one student
@@ -118,7 +117,7 @@ void Student::displayStudent(Student obj) // displays one student
 }
 void Student::printStdDatabase(Student StudentObj[])
 {
-    for (int i = 0; i < studentCount; i++)
+    for (int i = 0; i < Student::studentCount; i++)
         displayStudent(StudentObj[i]);
 }
 void Student::modifyStudent(Student obj) // or student id
@@ -211,7 +210,7 @@ void Student::gradeSummary(Student obj)
 
 bool Student::isUniqueSID(int id)
 {
-    if (StudentID.find(id) == StudentID.end())
+    if (Student::StudentID.find(id) == Student::StudentID.end())
         return false;
     else
         return true;
@@ -221,9 +220,9 @@ class Faculty
 {
 private:
     string Name;
-    static int facultyCount;             // stores count of students as ID
-    static unordered_set<int> FacultyID; //hash set
-    int uniqueFID;                       // unique student ID
+    inline static int facultyCount;             // stores count of students as ID
+    inline static unordered_set<int> FacultyID; //hash set
+    int uniqueFID;                              // unique student ID
     int age;
     //char section;
     char gender;
@@ -347,7 +346,7 @@ void printStudentMenu()
     cout << "7 delete student" << endl;
     cout << "8 Exit " << endl;
 }
-void main()
+int main()
 {
     Student StudentObj[STUDENTS_COUNT];
     Faculty FacultyObj[FACULTY_COUNT];
@@ -393,4 +392,5 @@ void main()
             break;
         }
     }
+    return 0;
 }
