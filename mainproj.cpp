@@ -55,6 +55,7 @@ public:
         subj1[0] = subj1[1] = subj1[2] = 'A';
         subj2[0] = subj2[1] = subj2[2] = 'A';
         subj3[0] = subj3[1] = subj3[2] = 'A';
+        StudentID.insert(NULL);
     }
 
     void createStudent();
@@ -66,6 +67,8 @@ public:
     void printDepartments(); //depts for a student
     bool isUniqueSID(int);
 };
+int Student::studentCount = 0;
+unordered_set<int> Student::StudentID;
 
 void Student::createStudent()
 {
