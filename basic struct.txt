@@ -1,0 +1,29 @@
+#include
+#define
+
+class student{
+    data ;
+    functions;
+};
+
+class faculty
+{
+    data ;
+    functions;
+};
+
+// other functions here
+
+void main()
+{
+    //user input to choose between student
+    // or faculty Database
+
+    //prints menu of student DB 
+        switch case // this needs to loop, untill a specific 
+        // number is inputted. then goes to back to db select. 
+        {
+            option 1
+            option 2
+        }
+}
