@@ -1,29 +1,12 @@
-#include
-#define
+database class
+student class + functions
+faculty class + functions
 
-class student{
-    data ;
-    functions;
-};
+inheritantce implementation
+overloading
 
-class faculty
-{
-    data ;
-    functions;
-};
+main menu - bw std and faculty
 
-// other functions here
+IF I HAVE TO PRINT allI NEED TO USE BOTH OBJS TO ACCESS MASTER DB
 
-void main()
-{
-    //user input to choose between student
-    // or faculty Database
-
-    //prints menu of student DB 
-        switch case // this needs to loop, untill a specific 
-        // number is inputted. then goes to back to db select. 
-        {
-            option 1
-            option 2
-        }
-}
+then choosing each of the options in each

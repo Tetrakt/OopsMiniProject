@@ -223,9 +223,9 @@ class Faculty
 {
 private:
     string Name;
-    inline static int facultyCount;             // stores count of students as ID
-    inline static unordered_set<int> FacultyID; //hash set
-    int uniqueFID;                              // unique student ID
+    static int facultyCount;             // stores count of students as ID
+    static unordered_set<int> FacultyID; //hash set
+    int uniqueFID;                       // unique student ID
     int age;
     //char section;
     char gender;
