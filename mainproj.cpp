@@ -30,9 +30,9 @@ class Student
 {
 private: // merge studentCoun into hashmap
     string Name;
-    static int studentCount;             // stores count of students as ID
-    static unordered_set<int> StudentID; //for reg id only
-    int uniqueSID;                       // unique student ID
+    static int studentCount; // stores count of students as ID
+    // static unordered_set<int> StudentID; convert to global array
+    int uniqueSID; // unique student ID
     int rollID;
     int age;
     char section;
@@ -42,33 +42,34 @@ private: // merge studentCoun into hashmap
     char subj2[3];
     char subj3[3];
     int grades[6];
+    const int valx;
 
 public:
-    Student() // default constructor
+    Student() : valx(15) // default constructor + init list
     {
         //studentCount = 0;
         Name = " ";
         age = 0;
-        section = ' ';
+        section = ' '; // one param
         gender = ' ';
         birthYear = 0000;
         subj1[0] = subj1[1] = subj1[2] = 'A';
         subj2[0] = subj2[1] = subj2[2] = 'A';
         subj3[0] = subj3[1] = subj3[2] = 'A';
-        StudentID.insert(NULL);
+        //StudentID.insert(NULL);
     }
 
     void createStudent();
     void displayStudent(Student);
     void printStdDatabase(Student *); // prints all
     void modifyStudent(Student);
-    void updateGrades(Student);
+    void updateGrades(Student); // convert to a friend?
     void gradeSummary(Student);
     void printDepartments(); //depts for a student
     bool isUniqueSID(int);
 };
 int Student::studentCount = 0;
-unordered_set<int> Student::StudentID;
+//unordered_set<int> Student::StudentID;
 
 void Student::createStudent()
 {
@@ -210,6 +211,10 @@ void Student::gradeSummary(Student obj)
     cout << "Average Marks : " << avg;
     cout << "Overall Percentage : " << gradePercent << " % " << endl;
 }
+// void Student::gradeSumary(Student obj,int ch)
+{
+    //choice switch case
+}
 
 bool Student::isUniqueSID(int id)
 {
@@ -338,7 +343,7 @@ bool Faculty::isUniqueFID(int id)
         return true;
 }
 
-void printStudentMenu()
+void printStudentMenu() //convert to inline, func overloadig too
 {
     cout << "1 enter data" << endl;
     cout << "2 print all" << endl;
@@ -352,7 +357,7 @@ void printStudentMenu()
 int main()
 {
     Student StudentObj[STUDENTS_COUNT];
-    Faculty FacultyObj[FACULTY_COUNT];
+    // Faculty FacultyObj[FACULTY_COUNT];
     //menu to view student or faculty data base
     //password protected?
     //then call related functions
@@ -362,7 +367,7 @@ int main()
     cout << "Student DB" << endl;
     while (ch != 8) // exit is zero is given
     {
-        printStudentMenu();
+        printStudentMenu(); //convert to inline
         cin >> ch;
         switch (ch)
         {
