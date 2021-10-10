@@ -1,12 +1,4 @@
-/* functions to manage data
-* show data on certain parameter
-*store data for each in a given file
-*student and faculty file, maybe more files?
-* teacher guardian implementation?
-* grades of students, calculate max, min, etc
-* fixed size of students and faculty,
-* added few changes
-*/
+
 #include <iostream>
 #include <bits/stdc++.h>
 #include <string.h>
@@ -16,8 +8,7 @@
 #include <conio.h>
 #include <stdio.h>
 #include <cstdlib>
-// CSV ? Maybe even see how much data is there??
-// non temporary data storage mgmt
+
 #define STUDENTS_COUNT 100
 #define FACULTY_COUNT 10
 
@@ -25,14 +16,35 @@
 #define SDB_PASSKEY "Student#000" //passkey for Student db
 
 using namespace std;
-//AS WELL AS THE OBJ SENT!!!!!
+
+int uIDlist[25];
+int db_count = 0;
+//find better soln.
+void uIDlist_set()
+{
+    for (int i = 0; i < 25; i++)
+        uIDlist[i] = 0;
+}
+void uIdlist_insert(int id)
+{
+    uIDlist[db_count] = id;
+}
+bool uIDlist_isUniqe(int id)
+{
+    for (int i = 0; i < 25; i++)
+    {
+        if (uIDlist[i] == id)
+            return false;
+    }
+    return true;
+}
+
 class Student
 {
-private: // merge studentCoun into hashmap
+private:
     string Name;
     static int studentCount; // stores count of students as ID
-    // static unordered_set<int> StudentID; convert to global array
-    int uniqueSID; // unique student ID
+    int uniqueSID;           // unique student ID
     int rollID;
     int age;
     char section;
@@ -212,16 +224,10 @@ void Student::gradeSummary(Student obj)
     cout << "Overall Percentage : " << gradePercent << " % " << endl;
 }
 // void Student::gradeSumary(Student obj,int ch)
-{
-    //choice switch case
-}
+//choice switch case
 
 bool Student::isUniqueSID(int id)
 {
-    if (Student::StudentID.find(id) == Student::StudentID.end())
-        return false;
-    else
-        return true;
 }
 
 class Faculty
@@ -343,61 +349,91 @@ bool Faculty::isUniqueFID(int id)
         return true;
 }
 
-void printStudentMenu() //convert to inline, func overloadig too
+inline void printMenu(int ch) //student menu
 {
-    cout << "1 enter data" << endl;
-    cout << "2 print all" << endl;
-    cout << "3 select 1" << endl; // stuck here on input for key
-    cout << "4 modify" << endl;
-    cout << "5 update grades" << endl;
-    cout << " 6 grade summary" << endl;
-    cout << "7 delete student" << endl;
-    cout << "8 Exit " << endl;
+    if (ch == 1)
+    {
+        cout << "1 enter data" << endl;
+        cout << "2 print all" << endl;
+        cout << "3 select 1" << endl; // stuck here on input for key
+        cout << "4 modify" << endl;
+        cout << "5 update grades" << endl;
+        cout << " 6 grade summary" << endl;
+        cout << "7 delete student" << endl;
+        cout << "8 Exit " << endl;
+    }
+    else if (ch == 2)
+    {
+        //faculty menu
+    }
+}
+inline void printMenu() //db menu, student or faculty
+{
+    //student or faculty
 }
 int main()
 {
-    Student StudentObj[STUDENTS_COUNT];
-    // Faculty FacultyObj[FACULTY_COUNT];
-    //menu to view student or faculty data base
-    //password protected?
-    //then call related functions
+    Student *StudentObj = new Student[STUDENTS_COUNT];
+    Faculty *FacultyObj = new Faculty[FACULTY_COUNT];
     //NEED A LOOP HERE FOR IT TO STAY IN THE SELECTION
     int t1, t2, t3; //rename
-    int ch = 0;
-    cout << "Student DB" << endl;
-    while (ch != 8) // exit is zero is given
+    int ch1 = 0, ch2 = 0;
+    // cout << "Student DB" << endl;
+    printMenu();
+    while (ch1 != 0)
     {
-        printStudentMenu(); //convert to inline
-        cin >> ch;
-        switch (ch)
+        if (ch1 == 1)
         {
-        case 1:
-            StudentObj->createStudent();
-            break;
-        case 2:
-            StudentObj->printStdDatabase(StudentObj); //pass array of objs
-            break;
-        case 3:
-            cout << "Enter Roll Number 1 to student count : ";
-            cin >> t1;
-            StudentObj->displayStudent(StudentObj[t1]); //check
-            break;
-        case 4:
-            cout << "Enter Roll Number to modify : ";
-            cin >> t1;
-            StudentObj->modifyStudent(StudentObj[t1]);
-        case 5:
-            cout << "Enter roll id to update grades : ";
-            cin >> t1;
-            StudentObj->updateGrades(StudentObj[t1]);
-            break;
-        case 6:
-            cout << "Enter roll id for grade Summary : ";
-            cin >> t1;
-            StudentObj->gradeSummary(StudentObj[t1]);
-            break;
-        default:
-            break;
+            while (ch2 != 8) // exit is zero is given
+            {
+                // printMenu(); //convert to inline
+                cin >> ch2;
+                switch (ch2)
+                {
+                case 1:
+                    StudentObj->createStudent();
+                    break;
+                case 2:
+                    StudentObj->printStdDatabase(StudentObj); //pass array of objs
+                    break;
+                case 3:
+                    cout << "Enter Roll Number 1 to student count : ";
+                    cin >> t1;
+                    StudentObj->displayStudent(StudentObj[t1]); //check
+                    break;
+                case 4:
+                    cout << "Enter Roll Number to modify : ";
+                    cin >> t1;
+                    StudentObj->modifyStudent(StudentObj[t1]);
+                case 5:
+                    cout << "Enter roll id to update grades : ";
+                    cin >> t1;
+                    StudentObj->updateGrades(StudentObj[t1]);
+                    break;
+                case 6:
+                    cout << "Enter roll id for grade Summary : ";
+                    cin >> t1;
+                    StudentObj->gradeSummary(StudentObj[t1]);
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+        else if (ch1 == 2)
+        {
+            while (ch2 != 8)
+            {
+                switch (ch2)
+                {
+                case 1:
+                    //faculty func.
+                    break;
+
+                default:
+                    break;
+                }
+            }
         }
     }
     return 0;
