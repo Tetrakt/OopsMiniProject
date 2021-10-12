@@ -78,7 +78,7 @@ public:
     void updateGrades(Student); // convert to a friend?
     void gradeSummary(Student);
     void printDepartments(); //depts for a student
-    bool isUniqueSID(int);
+                             // bool isUniqueSID(int);
 };
 int Student::studentCount = 0;
 //unordered_set<int> Student::StudentID;
@@ -93,7 +93,7 @@ void Student::createStudent()
     //enter uniqueID, if not uq, exit this func
     cout << "\n Enter Unique Student ID : ";
     cin >> t; // store input temporaily
-    if (isUniqueSID(t))
+    if (uIDlist_isUniqe(t))
         uniqueSID = t;
     else
     {
@@ -226,17 +226,15 @@ void Student::gradeSummary(Student obj)
 // void Student::gradeSumary(Student obj,int ch)
 //choice switch case
 
-bool Student::isUniqueSID(int id)
-{
-}
+//bool Student::isUniqueSID(int id)
 
 class Faculty
 {
 private:
     string Name;
-    static int facultyCount;             // stores count of students as ID
-    static unordered_set<int> FacultyID; //hash set
-    int uniqueFID;                       // unique student ID
+    int facultyCount;             // stores count of students as ID
+    unordered_set<int> FacultyID; //hash set
+    int uniqueFID;                // unique student ID
     int age;
     //char section;
     char gender;
@@ -371,15 +369,17 @@ inline void printMenu() //db menu, student or faculty
 {
     //student or faculty
 }
+
 int main()
 {
     Student *StudentObj = new Student[STUDENTS_COUNT];
     Faculty *FacultyObj = new Faculty[FACULTY_COUNT];
     //NEED A LOOP HERE FOR IT TO STAY IN THE SELECTION
     int t1, t2, t3; //rename
-    int ch1 = 0, ch2 = 0;
-    // cout << "Student DB" << endl;
+    int ch1 = -1, ch2 = -1;
+    cout << "Student DB" << endl;
     printMenu();
+    cin >> ch1;
     while (ch1 != 0)
     {
         if (ch1 == 1)
