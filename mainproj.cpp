@@ -1,11 +1,6 @@
 
 #include <iostream>
-#include <bits/stdc++.h>
 #include <string.h>
-#include <fstream>
-#include <string.h>
-#include <conio.h>
-#include <stdio.h>
 
 #define STUDENTS_COUNT 100
 #define FACULTY_COUNT 10
@@ -71,9 +66,6 @@ public:
     Student(int birthYear) : valx(15)
     {
         this->birthYear = birthYear;
-    }
-    Student() : valx(15)
-    {
     }
 
     void createStudent();
@@ -284,7 +276,7 @@ void Faculty::createFaculty()
     cin >> Name;
     cout << "\n Enter Unique Faculty ID : ";
     cin >> t; // store input temporaily
-    if (isUniqueFID(t))
+    if (uIDlist_isUnique(t))
     {
         uniqueFID = t;
         uIdlist_insert(t);
@@ -313,7 +305,7 @@ void Faculty::displayFaculty(Faculty obj)
     cout << "Age : " << obj.age << endl;
     cout << "Birth Year : " << obj.birthYear << endl;
     cout << "Gender : " << obj.gender << endl;
-    cout << "Department 1 : " << obj.dept << endl;
+    cout << "Department : " << obj.dept << endl;
     cout << "Salary : " << obj.salary << endl;
 }
 void Faculty::printFctDatabase(Faculty FacultyObj[])
@@ -367,22 +359,23 @@ inline void printMenu(int ch) //student menu
 {
     if (ch == 1)
     {
-        cout << "1 enter data" << endl;
-        cout << "2 print all" << endl;
-        cout << "3 select 1" << endl; // stuck here on input for key
-        cout << "4 modify" << endl;
-        cout << "5 update grades" << endl;
-        cout << " 6 grade summary" << endl;
-        cout << "7 gender detail" << endl;
-        cout << "8 Exit " << endl;
+        cout << "1. enter data" << endl;
+        cout << "2. print all" << endl;
+        cout << "3. select 1" << endl; //  input for key
+        cout << "4. modify" << endl;
+        cout << "5. update grades" << endl;
+        cout << "6. grade summary" << endl;
+        cout << "7. gender detail" << endl;
+        cout << "0. Exit " << endl;
     }
     else if (ch == 2)
     {
         //faculty menu
-        cout << "1 enter data" << endl;
-        cout << "2 print all" << endl;
-        cout << "3 select 1" << endl; // stuck here on input for key
-        cout << "4 modify" << endl;
+        cout << "1. enter data" << endl;
+        cout << "2. print all" << endl;
+        cout << "3. select 1" << endl; //
+        cout << "4. modify" << endl;
+        cout << "0. Exit" << endl;
     }
 }
 inline void printMenu() //db menu, student or faculty
@@ -400,10 +393,17 @@ int main()
     for (int i = 0; i < STUDENTS_COUNT; i++)
     {
         Student(2000);
+        //or
+        //Student(i+1); setting roll number too.
+    }
+    for (int i = 0; i < FACULTY_COUNT; i++)
+    {
+        Faculty(50000);
     }
     int t1, t2, t3; //rename
     int ch1 = -1, ch2 = -1;
-    //cout << "Student DB" << endl;
+    cout << "University DataBase Management System" << endl;
+    //passkey verification ?
     printMenu();
     cin >> ch1;
     while (ch1 != 3)
@@ -445,6 +445,9 @@ int main()
                     cout << "Enter roll ID for gender : ";
                     cin >> t1;
                     printGender(StudentObj[t1 - 1]);
+                case 8:
+                    ch1 = -1;
+                    break;
                 default:
                     break;
                 }
@@ -452,21 +455,38 @@ int main()
         }
         else if (ch1 == 2)
         {
-            while (ch2 != 8)
+            while (ch2 != 0)
             {
                 printMenu(ch1);
+                cin >> ch2;
                 switch (ch2)
                 {
                 case 1:
-                    //faculty func.
+                    FacultyObj->createFaculty();
                     break;
-
+                case 2:
+                    FacultyObj->printFctDatabase(FacultyObj);
+                    break;
+                case 3:
+                    cout << "Enter Faculty roll number : ";
+                    cin >> t1;
+                    FacultyObj->displayFaculty(FacultyObj[t1 - 1]);
+                    break;
+                case 4:
+                    cout << "Enter Roll number to modify : ";
+                    cin >> t1;
+                    FacultyObj->modifyFaculty(FacultyObj[t1 - 1]);
+                    break;
+                case 0:
+                    ch1 = -1;
+                    break;
                 default:
                     break;
                 }
             }
         }
         printMenu();
+        cin >> ch1;
     }
     return 0;
 }
