@@ -416,6 +416,8 @@ int main()
                 cin >> ch2;
                 switch (ch2)
                 {
+                case 0:
+                    break;
                 case 1:
                     StudentObj->createStudent();
                     break;
@@ -459,6 +461,8 @@ int main()
                 cin >> ch2;
                 switch (ch2)
                 {
+                case 0:
+                    break;
                 case 1:
                     FacultyObj->createFaculty();
                     break;
@@ -482,6 +486,7 @@ int main()
         }
         printMenu();
         cin >> ch1;
+        ch2 = -1;
     }
     return 0;
 }
