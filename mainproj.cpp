@@ -80,7 +80,7 @@ public:
     void printDepartments(); //depts for a student
                              // bool isUniqueSID(int);
 };
-int Student::studentCount = 0;
+int Student::studentCount = 1;
 //unordered_set<int> Student::StudentID;
 
 void Student::createStudent()
