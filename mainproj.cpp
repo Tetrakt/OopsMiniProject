@@ -445,8 +445,6 @@ int main()
                     cout << "Enter roll ID for gender : ";
                     cin >> t1;
                     printGender(StudentObj[t1 - 1]);
-                case 8:
-                    ch1 = -1;
                     break;
                 default:
                     break;
@@ -476,9 +474,6 @@ int main()
                     cout << "Enter Roll number to modify : ";
                     cin >> t1;
                     FacultyObj->modifyFaculty(FacultyObj[t1 - 1]);
-                    break;
-                case 0:
-                    ch1 = -1;
                     break;
                 default:
                     break;
