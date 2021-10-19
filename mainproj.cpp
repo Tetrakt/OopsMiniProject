@@ -2,12 +2,10 @@
 #include <iostream>
 #include <bits/stdc++.h>
 #include <string.h>
-#include <cstdio>
 #include <fstream>
 #include <string.h>
 #include <conio.h>
 #include <stdio.h>
-#include <cstdlib>
 
 #define STUDENTS_COUNT 100
 #define FACULTY_COUNT 10
@@ -46,7 +44,7 @@ private:
     static int studentCount; // stores count of students as ID
     int uniqueSID;           // unique student ID
     int rollID;
-    int age;
+    int age; // becomes the friend func
     char section;
     char gender;
     int birthYear;
