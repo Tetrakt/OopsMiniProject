@@ -27,7 +27,7 @@ void uIdlist_insert(int id)
 {
     uIDlist[db_count] = id;
 }
-bool uIDlist_isUniqe(int id)
+bool uIDlist_isUnique(int id)
 {
     for (int i = 0; i < 25; i++)
     {
@@ -46,7 +46,7 @@ private:
     int rollID;
     int age; // becomes the friend func
     char section;
-    char gender;
+    char gender; // male,female, other, used for friend function
     int birthYear;
     char subj1[3]; //might get renamed to subj
     char subj2[3];
@@ -68,6 +68,13 @@ public:
         subj3[0] = subj3[1] = subj3[2] = 'A';
         //StudentID.insert(NULL);
     }
+    Student(int birthYear) : valx(15)
+    {
+        this->birthYear = birthYear;
+    }
+    Student() : valx(15)
+    {
+    }
 
     void createStudent();
     void displayStudent(Student);
@@ -76,23 +83,24 @@ public:
     void updateGrades(Student); // convert to a friend?
     void gradeSummary(Student);
     void printDepartments(); //depts for a student
-                             // bool isUniqueSID(int);
+    friend void printGender(Student);
 };
 int Student::studentCount = 1;
-//unordered_set<int> Student::StudentID;
 
 void Student::createStudent()
 {
     int t;
-    //consider piping output to csv file?
     cout << "\n CREATING A STUDENT..." << endl;
     cout << "Enter Student Name: ";
     getline(cin, Name);
     //enter uniqueID, if not uq, exit this func
-    cout << "\n Enter Unique Student ID : ";
+    cout << "\nEnter Unique Student ID : ";
     cin >> t; // store input temporaily
-    if (uIDlist_isUniqe(t))
+    if (uIDlist_isUnique(t))
+    {
         uniqueSID = t;
+        //insert into it
+    }
     else
     {
         cout << "\n ID entered already exists.";
@@ -114,6 +122,7 @@ void Student::createStudent()
     cin >> subj3;
     Student::studentCount++;
     rollID = Student::studentCount;
+    cout << "Roll ID assigned : " << rollID << endl;
     cout << " * STUDENT DATA CREATED SUCCESFULLY \n";
 }
 void Student::displayStudent(Student obj) // displays one student
@@ -122,11 +131,11 @@ void Student::displayStudent(Student obj) // displays one student
     //cout unique id
     cout << "Unique ID : " << obj.uniqueSID << endl;
     cout << "Roll Number : " << obj.rollID << endl;
-    cout << " Age : " << obj.age << endl;
+    cout << "Age : " << obj.age << endl;
     cout << "Section : " << obj.section << endl;
     cout << "Gender : " << obj.gender << endl;
-    cout << "Subjectt 1 : " << obj.subj1 << endl;
-    cout << "Subeject 2 : " << obj.subj2 << endl;
+    cout << "Subject 1 : " << obj.subj1 << endl;
+    cout << "Subject 2 : " << obj.subj2 << endl;
     cout << "Subject 3 : " << obj.subj3 << endl;
 }
 void Student::printStdDatabase(Student StudentObj[])
@@ -221,11 +230,15 @@ void Student::gradeSummary(Student obj)
     cout << "Average Marks : " << avg;
     cout << "Overall Percentage : " << gradePercent << " % " << endl;
 }
-// void Student::gradeSumary(Student obj,int ch)
-//choice switch case
-
-//bool Student::isUniqueSID(int id)
-
+void printGender(Student obj)
+{
+    if (obj.gender == 'M' || obj.gender == 'm')
+        cout << "male" << endl;
+    else if (obj.gender == 'F' || obj.gender == 'f')
+        cout << "female" << endl;
+    else
+        cout << "Other gender" << endl;
+}
 class Faculty
 {
 private:
@@ -257,7 +270,9 @@ public:
     void printDepartment(); //depts for a faculty
     void deleteFaculty();
     bool isUniqueFID(int);
+    friend void printGender(Faculty);
 };
+
 void Faculty::createFaculty()
 {
     int t;
@@ -344,7 +359,15 @@ bool Faculty::isUniqueFID(int id)
     else
         return true;
 }
-
+void printGender(Faculty obj)
+{
+    if (obj.gender == 'M' || obj.gender == 'm')
+        cout << "male" << endl;
+    else if (obj.gender == 'F' || obj.gender == 'f')
+        cout << "female" << endl;
+    else
+        cout << "Other gender" << endl;
+}
 inline void printMenu(int ch) //student menu
 {
     if (ch == 1)
@@ -355,12 +378,16 @@ inline void printMenu(int ch) //student menu
         cout << "4 modify" << endl;
         cout << "5 update grades" << endl;
         cout << " 6 grade summary" << endl;
-        cout << "7 delete student" << endl;
+        cout << "7 gender detail" << endl;
         cout << "8 Exit " << endl;
     }
     else if (ch == 2)
     {
         //faculty menu
+        cout << "1 enter data" << endl;
+        cout << "2 print all" << endl;
+        cout << "3 select 1" << endl; // stuck here on input for key
+        cout << "4 modify" << endl;
     }
 }
 inline void printMenu() //db menu, student or faculty
@@ -375,10 +402,13 @@ int main()
 {
     Student *StudentObj = new Student[STUDENTS_COUNT];
     Faculty *FacultyObj = new Faculty[FACULTY_COUNT];
-    //NEED A LOOP HERE FOR IT TO STAY IN THE SELECTION
+    for (int i = 0; i < STUDENTS_COUNT; i++)
+    {
+        Student(2000);
+    }
     int t1, t2, t3; //rename
     int ch1 = -1, ch2 = -1;
-    cout << "Student DB" << endl;
+    //cout << "Student DB" << endl;
     printMenu();
     cin >> ch1;
     while (ch1 != 3)
@@ -400,22 +430,26 @@ int main()
                 case 3:
                     cout << "Enter Roll Number 1 to student count : ";
                     cin >> t1;
-                    StudentObj->displayStudent(StudentObj[t1]); //check
+                    StudentObj->displayStudent(StudentObj[t1 - 1]); //t1-1 as roll num from 1, but array from 0
                     break;
                 case 4:
                     cout << "Enter Roll Number to modify : ";
                     cin >> t1;
-                    StudentObj->modifyStudent(StudentObj[t1]);
+                    StudentObj->modifyStudent(StudentObj[t1 - 1]);
                 case 5:
                     cout << "Enter roll id to update grades : ";
                     cin >> t1;
-                    StudentObj->updateGrades(StudentObj[t1]);
+                    StudentObj->updateGrades(StudentObj[t1 - 1]);
                     break;
                 case 6:
                     cout << "Enter roll id for grade Summary : ";
                     cin >> t1;
-                    StudentObj->gradeSummary(StudentObj[t1]);
+                    StudentObj->gradeSummary(StudentObj[t1 - 1]);
                     break;
+                case 7:
+                    cout << "Enter roll ID for gender : ";
+                    cin >> t1;
+                    printGender(StudentObj[t1 - 1]);
                 default:
                     break;
                 }
@@ -425,6 +459,7 @@ int main()
         {
             while (ch2 != 8)
             {
+                printMenu(ch1);
                 switch (ch2)
                 {
                 case 1:
@@ -436,6 +471,7 @@ int main()
                 }
             }
         }
+        printMenu();
     }
     return 0;
 }
