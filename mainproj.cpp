@@ -25,7 +25,7 @@ void uIDlist_set()
 }
 void uIdlist_insert(int id)
 {
-    uIDlist[db_count] = id;
+    uIDlist[db_count++] = id;
 }
 bool uIDlist_isUnique(int id)
 {
@@ -92,7 +92,7 @@ void Student::createStudent()
     int t;
     cout << "\n CREATING A STUDENT..." << endl;
     cout << "Enter Student Name: ";
-    getline(cin, Name);
+    cin >> Name;
     //enter uniqueID, if not uq, exit this func
     cout << "\nEnter Unique Student ID : ";
     cin >> t; // store input temporaily
@@ -100,6 +100,7 @@ void Student::createStudent()
     {
         uniqueSID = t;
         //insert into it
+        uIdlist_insert(t);
     }
     else
     {
@@ -243,9 +244,9 @@ class Faculty
 {
 private:
     string Name;
-    int facultyCount;             // stores count of students as ID
-    unordered_set<int> FacultyID; //hash set
-    int uniqueFID;                // unique student ID
+    static int facultyCount;
+    int uniqueFID;
+    int rollID;
     int age;
     //char section;
     char gender;
@@ -263,28 +264,31 @@ public:
         dept[0] = dept[1] = dept[2] = 'A';
         salary = 0;
     }
+    Faculty(int salary)
+    {
+        this->salary = salary;
+    }
     void createFaculty();
     void displayFaculty(Faculty);
     void printFctDatabase(Faculty FacultyObj[]);
     void modifyFaculty(Faculty);
     void printDepartment(); //depts for a faculty
-    void deleteFaculty();
-    bool isUniqueFID(int);
     friend void printGender(Faculty);
 };
-
+int Faculty::facultyCount = 1;
 void Faculty::createFaculty()
 {
     int t;
-    //consider piping output to csv file?
     cout << "\n CREATING A Faculty..." << endl;
     cout << "Enter Faculty Name: ";
-    getline(cin, Name);
-    //enter uniqueID, if not uq, exit this func
+    cin >> Name;
     cout << "\n Enter Unique Faculty ID : ";
     cin >> t; // store input temporaily
     if (isUniqueFID(t))
+    {
         uniqueFID = t;
+        uIdlist_insert(t);
+    }
     else
     {
         cout << "\n ID entered already exists.";
@@ -302,18 +306,16 @@ void Faculty::createFaculty()
     cin >> salary;
     cout << " * FACULTY DATA CREATED SUCCESFULLY \n";
 }
-
 void Faculty::displayFaculty(Faculty obj)
 {
     cout << "Name : " << obj.Name << endl;
-    cout << " Unique Faculty ID : " << obj.uniqueFID << endl;
-    cout << " Age : " << obj.age << endl;
+    cout << "Unique Faculty ID : " << obj.uniqueFID << endl;
+    cout << "Age : " << obj.age << endl;
     cout << "Birth Year : " << obj.birthYear << endl;
     cout << "Gender : " << obj.gender << endl;
     cout << "Department 1 : " << obj.dept << endl;
     cout << "Salary : " << obj.salary << endl;
 }
-
 void Faculty::printFctDatabase(Faculty FacultyObj[])
 {
     for (int i = 0; i < facultyCount; i++)
@@ -351,13 +353,6 @@ void Faculty::modifyFaculty(Faculty obj) // or student id
     }
     break;
     }
-}
-bool Faculty::isUniqueFID(int id)
-{
-    if (FacultyID.find(id) == FacultyID.end())
-        return false;
-    else
-        return true;
 }
 void printGender(Faculty obj)
 {
