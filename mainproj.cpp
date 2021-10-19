@@ -368,6 +368,9 @@ inline void printMenu(int ch) //student menu
 inline void printMenu() //db menu, student or faculty
 {
     //student or faculty
+    cout << " 1. student db" << endl;
+    cout << " 2. faculty db" << endl;
+    cout << " 3. exit " << endl;
 }
 
 int main()
@@ -380,13 +383,13 @@ int main()
     cout << "Student DB" << endl;
     printMenu();
     cin >> ch1;
-    while (ch1 != 0)
+    while (ch1 != 3)
     {
         if (ch1 == 1)
         {
-            while (ch2 != 8) // exit is zero is given
+            while (ch2 != 0) // exit is zero is given
             {
-                // printMenu(); //convert to inline
+                printMenu(ch1); //convert to inline
                 cin >> ch2;
                 switch (ch2)
                 {
