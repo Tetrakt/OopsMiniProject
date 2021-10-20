@@ -76,6 +76,10 @@ public:
     void gradeSummary(Student);
     void printDepartments(); //depts for a student
     friend void printGender(Student);
+    ~Student()
+    {
+        cout << "Student Destructor, student deleted";
+    }
 };
 int Student::studentCount = 1;
 
@@ -266,6 +270,10 @@ public:
     void modifyFaculty(Faculty);
     void printDepartment(); //depts for a faculty
     friend void printGender(Faculty);
+    ~Faculty()
+    {
+        cout << "Faculty deleted";
+    }
 };
 int Faculty::facultyCount = 1;
 void Faculty::createFaculty()
@@ -488,5 +496,7 @@ int main()
         cin >> ch1;
         ch2 = -1;
     }
+    delete[] StudentObj;
+    delete[] FacultyObj;
     return 0;
 }
