@@ -47,7 +47,7 @@ private:
     char subj2[3];
     char subj3[3];
     int grades[6];
-    const int valx;
+    const int valx; //batch year
 
 public:
     Student() : valx(15) // default constructor + init list

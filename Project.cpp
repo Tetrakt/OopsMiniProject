@@ -1,5 +1,5 @@
 #include <iostream>
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 #include <string.h>
 
 #define STUDENT_COUNT 20
@@ -41,7 +41,6 @@ protected: // protected not private
     int birthyear;
     int rollNum;
     char role; // student or faculty
-
     DataBase()
     {
         name = " ";
@@ -55,6 +54,7 @@ protected: // protected not private
 public:
     // void display(DataBase);
     // void printAll(DataBase *);
+    friend class Student; // thus db can access
 };
 
 class Student : protected DataBase //20instances, subclass
