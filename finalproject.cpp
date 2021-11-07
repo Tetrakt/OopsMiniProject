@@ -246,14 +246,115 @@ class Faculty : protected DataBase //5 instances //subclass
 protected:
     int salary;
     char dept[3];
+    static int facultyCount;
+    int rollNum;
 
 public:
     //void display();
+    void createFaculty();
+    void displayFaculty();
+    void printFacultyDB(Faculty *);
+    void modifyFaculty();
+    //print dept, for student?
+    Faculty()
+    {
+        name = " ";
+        age = 0;
+        gender = ' ';
+        birthYear = 0000;
+        dept[0] = dept[1] = dept[2] = 'A';
+        salary = 0;
+    }
+    Faculty(int salary)
+    {
+        this->salary = salary;
+    }
+    ~Faculty()
+    {
+        cout << "Faculty destructor";
+    }
 };
-
-inline void printMenu(int ch) //student menu
+int Faculty::facultyCount = 1;
+void Faculty::createFaculty()
 {
-    if (ch == 1)
+    int t;
+    cout << "\n CREATING A Faculty..." << endl;
+    cout << "Enter Faculty Name: ";
+    cin >> name;
+    cout << "\n Enter Unique Faculty ID : ";
+    cin >> t; // store input temporaily
+    if (uIDlist_isUnique(t))
+    {
+        uniqueID = t;
+        uIdlist_insert(t);
+    }
+    else
+    {
+        cout << "\n ID entered already exists.";
+        exit(0);
+    }
+    cout << "\nEnter age : ";
+    cin >> age;
+    cout << "\n Enter Birth Year : ";
+    cin >> birthYear;
+    cout << "\n Enter gender: ";
+    cin >> gender;
+    cout << "\n Department : ";
+    cin >> dept;
+    cout << "\n Enter salary : ";
+    cin >> salary;
+    rollNum = Faculty::facultyCount++;
+    cout << "Roll ID assigned : " << rollNum << endl;
+    cout << " * FACULTY DATA CREATED SUCCESFULLY \n";
+}
+void Faculty::displayFaculty()
+{
+    cout << "Name : " << this->name << endl;
+    cout << "Unique Faculty ID : " << this->uniqueID << endl;
+    cout << "Age : " << this->age << endl;
+    cout << "Birth Year : " << this->birthYear << endl;
+    cout << "Gender : " << this->gender << endl;
+    cout << "Department : " << this->dept << endl;
+    cout << "Salary : " << this->salary << endl;
+}
+void Faculty::printFacultyDB(Faculty FacultyObj[])
+{
+    for (int i = 0; i < facultyCount; i++)
+        FacultyObj[i].displayFaculty();
+}
+void Faculty::modifyFaculty()
+{
+    int ch;
+    cout << "*Faculty TO BE MODIFIED*" << endl;
+    cout << "Name : " << this->name << endl;
+    cout << "\n menu list" << endl;
+    cout << " 1. Department " << endl;
+    cout << " 2. Salary " << endl;
+    cin >> ch;
+    switch (ch)
+    {
+    case 1:
+    {
+        cout << "Enter new Department : ";
+        cin >> this->dept;
+    }
+    break;
+    case 2:
+    {
+        cout << "Enter new Salary : ";
+        cin >> this->salary;
+    }
+    break;
+    default:
+    {
+        cout << "Invalid Option, Please try again ";
+    }
+    break;
+    }
+}
+inline void printMenu(int ch)
+{
+    if (ch == 1) //student menu
     {
         cout << "1. enter data" << endl;
         cout << "2. print all" << endl;
@@ -281,10 +382,11 @@ inline void printMenu(int ch) //student menu
 }
 inline void printMenu() //db menu, student or faculty
 {
-    //student or faculty
+    //student, faculty or phd
     cout << " 1. student db" << endl;
     cout << " 2. faculty db" << endl;
-    cout << " 3. exit " << endl;
+    cout << " 3. PHD db" << endl;
+    cout << " 4. exit " << endl;
 }
 
 int main()
@@ -369,17 +471,17 @@ int main()
                     FacultyObj->createFaculty();
                     break;
                 case 2:
-                    FacultyObj->printFctDatabase(FacultyObj);
+                    FacultyObj->printFacultyDB(FacultyObj);
                     break;
                 case 3:
                     cout << "Enter Faculty roll number : ";
                     cin >> t1;
-                    FacultyObj->displayFaculty(FacultyObj[t1 - 1]);
+                    FacultyObj[t1 - 1].displayFaculty();
                     break;
                 case 4:
                     cout << "Enter Roll number to modify : ";
                     cin >> t1;
-                    FacultyObj->modifyFaculty(FacultyObj[t1 - 1]);
+                    FacultyObj[t1 - 1].modifyFaculty();
                     break;
                 default:
                     break;
