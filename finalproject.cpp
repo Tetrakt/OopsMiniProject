@@ -2,15 +2,16 @@
 #include <iostream>
 #include <string.h>
 
-#define STUDENTS_COUNT 100
-#define FACULTY_COUNT 10
+#define STUDENTS_COUNT 5 //max of each
+#define FACULTY_COUNT 2
+#define PHD_COUNT 1
 
 #define FDD_PASSKEY "Faculty@737" //passkey for faculty db
 #define SDB_PASSKEY "Student#000" //passkey for Student db
 
 using namespace std;
 
-int uIDlist[25];
+int uIDlist[25]; //student,faculty,phd count
 int db_count = 0;
 //find better soln.
 void uIDlist_set()
@@ -38,9 +39,9 @@ protected: // protected not private
     int age;
     char gender;
     int birthYear;
-    int rollNum;
-    int uniqueSID;
-    char role; // student,faculty,or masters
+    int rollNum;  //auto generated
+    int uniqueID; //given on input
+    char role;    // S,F or P
     DataBase()
     {
         name = " ";
@@ -49,13 +50,13 @@ protected: // protected not private
         birthYear = 0000;
         role = ' ';
         rollNum = 0;
-        uniqueSID = 0;
+        uniqueID = 0;
     }
 
 public:
-    void display(DataBase);
-    void printAll(DataBase *);
-    friend class Student; // thus db can access
+    void display(DataBase);    //todo
+    void printAll(DataBase *); //todo
+    friend class Student;      // thus db can access
     friend class Faculty;
 };
 
@@ -68,10 +69,11 @@ private:
     char subj2[3];
     char subj3[3];
     int grades[6];
-    const int valx; //batch year
+    const int batchyr; //batch year
+    static int studentCount;
 
 public:
-    Student() : valx(15) // default constructor + init list
+    Student() : batchyr(18) // default constructor + init list
     {
         age = 0;
         section = ' '; // one param
@@ -80,7 +82,7 @@ public:
         subj2[0] = subj2[1] = subj2[2] = 'A';
         subj3[0] = subj3[1] = subj3[2] = 'A';
     }
-    Student(int birthYear) : valx(15)
+    Student(int birthYear) : batchyr(18)
     {
         this->birthYear = birthYear;
     }
@@ -109,7 +111,7 @@ void Student::createStudent()
     cin >> t; // store input temporaily
     if (uIDlist_isUnique(t))
     {
-        uniqueSID = t;
+        uniqueID = t;
         //insert into it
         uIdlist_insert(t);
     }
@@ -132,15 +134,15 @@ void Student::createStudent()
     cin >> subj2;
     cout << "\n Subject 3 : ";
     cin >> subj3;
-    Student::studentCount++;
-    rollID = Student::studentCount;
-    cout << "Roll ID assigned : " << rollID << endl;
+    //Student::studentCount++;
+    rollNum = Student::studentCount++;
+    cout << "Roll ID assigned : " << rollNum << endl;
     cout << " * STUDENT DATA CREATED SUCCESFULLY \n";
 }
 void Student::displayStudent()
 {
     cout << "Name : " << this->name << endl;
-    cout << "Unique ID : " << this->uniqueSID << endl;
+    cout << "Unique ID : " << this->uniqueID << endl;
     cout << "Roll Number : " << this->rollNum << endl;
     cout << "Age : " << this->age << endl;
     cout << "Section : " << this->section << endl;
