@@ -1,6 +1,7 @@
 //i hope this is final lol
 #include <iostream>
 #include <string.h>
+#include <fstream>
 
 #define STUDENTS_COUNT 5 //max of each
 #define FACULTY_COUNT 2
@@ -67,7 +68,7 @@ private:
     char subj1[3]; //might get renamed to subj
     char subj2[3];
     char subj3[3];
-    int grades[6];
+    //int grades[6];
     const int batchyr; //batch year
     int rollNum;
     static int studentCount;
@@ -93,6 +94,7 @@ public:
     void updateGrades(); // convert to a friend?
     void gradeSummary();
     void printDepartments(); //depts for a student
+    void writeToFile_stud(Student *);
     friend void printGender(Student);
     ~Student()
     {
@@ -241,6 +243,27 @@ void Student::gradeSummary()
     cout << "Overall Percentage : " << gradePercent << " % " << endl;
 }
 
+void Student::writeToFile_stud(Student StudentObj[])
+{
+    ofstream file_obj; // Object to write in file
+    file_obj.open("Stud_db.txt", ios::out);// Opening file in append mode
+    for (int i = 0; i < Student::studentCount; i++)
+    {
+        file_obj <<StudentObj[i].name<<" ";
+        file_obj << StudentObj[i].uniqueID << " ";
+        file_obj << StudentObj[i].rollNum << " ";
+        file_obj << StudentObj[i].age << " ";
+        file_obj << StudentObj[i].section << " ";
+        file_obj << StudentObj[i].gender << " ";
+        file_obj << StudentObj[i].subj1 << " ";
+        file_obj << StudentObj[i].subj2 << " ";
+        file_obj << StudentObj[i].subj3 << endl;
+        //file_obj.write((char*)&StudentObj[i], sizeof(StudentObj[i]));
+    }
+    file_obj.close();    
+    
+}
+
 class Faculty : protected DataBase //5 instances //subclass
 {
 protected:
@@ -255,6 +278,7 @@ public:
     void displayFaculty();
     void printFacultyDB(Faculty *);
     void modifyFaculty();
+    void writeToFile_faculty(Faculty *);
     //print dept, for student?
     Faculty()
     {
@@ -352,6 +376,24 @@ void Faculty::modifyFaculty()
     break;
     }
 }
+
+void Faculty::writeToFile_faculty(Faculty FacultyObj[])
+{
+    ofstream file_obj; // Object to write in file
+    file_obj.open("Stud_db.txt", ios::out);// Opening file in append mode
+    for (int i = 0; i < Faculty::facultyCount; i++)
+    {
+        file_obj <<FacultyObj[i].name<<" ";
+        file_obj << FacultyObj[i].uniqueID << " ";
+        file_obj << FacultyObj[i].rollNum << " ";
+        file_obj << FacultyObj[i].age << " ";
+        file_obj << FacultyObj[i].dept << " ";
+        file_obj << FacultyObj[i].gender << " ";
+        file_obj << FacultyObj[i].salary <<endl;
+    }
+    file_obj.close();    
+    
+}
 inline void printMenu(int ch)
 {
     if (ch == 1) //student menu
@@ -363,6 +405,7 @@ inline void printMenu(int ch)
         cout << "5. update grades" << endl;
         cout << "6. grade summary" << endl;
         cout << "7. gender detail" << endl;
+        cout << "8. update database"<<endl;
         cout << "0. Exit " << endl;
     }
     else if (ch == 2)
@@ -372,6 +415,7 @@ inline void printMenu(int ch)
         cout << "2. print all" << endl;
         cout << "3. select 1" << endl;
         cout << "4. modify" << endl;
+        cout << "5.update database" << endl;
         cout << "0. Exit" << endl;
     }
     else if (ch == 3)
@@ -452,6 +496,9 @@ int main()
                     cin >> t1;
                     printGender(StudentObj[t1 - 1]);
                     break;
+                case 8:
+                    StudentObj ->writeToFile_stud(StudentObj);
+                    break;
                 default:
                     break;
                 }
@@ -483,6 +530,9 @@ int main()
                     cin >> t1;
                     FacultyObj[t1 - 1].modifyFaculty();
                     break;
+                case 8:
+                    FacultyObj ->writeToFile_faculty(FacultyObj);
+                break;
                 default:
                     break;
                 }
