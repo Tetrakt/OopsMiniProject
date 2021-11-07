@@ -57,7 +57,7 @@ public:
     friend class Student; // thus db can access
 };
 
-class Student : protected DataBase //20instances, subclass
+class Student : virtual protected DataBase //20instances, subclass
 {
 private:
     char section;
@@ -71,7 +71,7 @@ public:
     void modifyStudent(Student);
 };
 
-class Faculty : protected DataBase //5 instances //subclass
+class Faculty : virtual protected DataBase //5 instances //subclass
 {
 protected:
     int salary;
@@ -79,6 +79,12 @@ protected:
 
 public:
     void display();
+};
+
+class TeachingAssistant : public Student, public Faculty
+{
+    public:
+        char thesis[20];
 };
 
 int main()
