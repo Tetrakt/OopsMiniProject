@@ -39,7 +39,7 @@ protected: // protected not private
     int age;
     char gender;
     int birthYear;
-    int rollNum;  //auto generated
+    //int rollNum;  //auto generated
     int uniqueID; //given on input
     char role;    // S,F or P
     DataBase()
@@ -49,7 +49,6 @@ protected: // protected not private
         gender = ' ';
         birthYear = 0000;
         role = ' ';
-        rollNum = 0;
         uniqueID = 0;
     }
 
@@ -70,6 +69,7 @@ private:
     char subj3[3];
     int grades[6];
     const int batchyr; //batch year
+    int rollNum;
     static int studentCount;
 
 public:
@@ -89,9 +89,9 @@ public:
     void createStudent();
     void displayStudent();
     void printStudentDB(Student *);
-    void modifyStudent(Student);
-    void updateGrades(Student); // convert to a friend?
-    void gradeSummary(Student);
+    void modifyStudent();
+    void updateGrades(); // convert to a friend?
+    void gradeSummary();
     void printDepartments(); //depts for a student
     friend void printGender(Student);
     ~Student()
@@ -150,6 +150,95 @@ void Student::displayStudent()
     cout << "Subject 1 : " << this->subj1 << endl;
     cout << "Subject 2 : " << this->subj2 << endl;
     cout << "Subject 3 : " << this->subj3 << endl;
+}
+void Student::printStudentDB(Student StudentObj[])
+{
+    for (int i = 0; i < Student::studentCount; i++)
+        StudentObj[i].displayStudent();
+}
+void Student::modifyStudent()
+{
+    //Choose basis of roll num?? sent from main()?
+    int ch;
+    cout << "*STUDENT TO BE MODIFIED*" << endl;
+    cout << "Name : " << this->name << endl;
+    cout << "\n menu list" << endl;
+    cout << " 1. Section " << endl;
+    cout << " 2. Subject 1 " << endl;
+    cout << " 3. Subject 2 " << endl;
+    cout << " 4. Subject 3 " << endl;
+    cin >> ch;
+    switch (ch)
+    {
+    case 1:
+    {
+        cout << "Enter new Section : ";
+        cin >> this->section;
+    }
+    break;
+    case 2:
+    {
+        cout << "Enter new subject 1 : ";
+        cin >> this->subj1;
+    }
+    break;
+    case 3:
+    {
+        cout << "Enter new Subject 2 : ";
+        cin >> this->subj2;
+    }
+    break;
+    case 4:
+    {
+        cout << "Enter new Subject 3 : ";
+        cin >> this->subj3;
+    }
+    break;
+    default:
+    {
+        cout << "Invalid Option, Please try again ";
+    }
+    break;
+    }
+}
+void Student::updateGrades()
+{
+    int t;
+    cout << "\n Enter the marks of 6 subjects (0-100) ";
+    for (int i = 0; i < 6; i++)
+    {
+        cin >> t;
+        if (t >= 0 && t <= 100)
+            this->grades[i] = t;
+        else
+        {
+            cout << "invalid input,try again \n";
+            i--;
+        }
+    }
+}
+void Student::gradeSummary()
+{
+    int sum = 0, min = 0, max = 0, i;
+    min = max = this->grades[0];
+    float gpa, gradePercent, avg;
+    for (i = 0; i < 6; i++)
+    {
+        if (this->grades[i] > max)
+            max = this->grades[i];
+        if (this->grades[i] < min)
+            min = this->grades[i];
+        sum += this->grades[i];
+    }
+    avg = (float)sum / 6;
+    gradePercent = (float)sum / 600.0;
+    gpa = gradePercent / 10.0;
+    cout << "Grade Summary of Student : " << this->name << endl;
+    cout << "GPA : " << gpa << endl;
+    cout << "Highest Marks : " << max << endl;
+    cout << "Lowest Marks : " << min << endl;
+    cout << "Average Marks : " << avg;
+    cout << "Overall Percentage : " << gradePercent << " % " << endl;
 }
 
 class Faculty : protected DataBase //5 instances //subclass
@@ -245,16 +334,16 @@ int main()
                 case 4:
                     cout << "Enter Roll Number to modify : ";
                     cin >> t1;
-                    StudentObj->modifyStudent(StudentObj[t1 - 1]);
+                    StudentObj[t1 - 1].modifyStudent();
                 case 5:
                     cout << "Enter roll id to update grades : ";
                     cin >> t1;
-                    StudentObj->updateGrades(StudentObj[t1 - 1]);
+                    StudentObj[t1 - 1].updateGrades();
                     break;
                 case 6:
                     cout << "Enter roll id for grade Summary : ";
                     cin >> t1;
-                    StudentObj->gradeSummary(StudentObj[t1 - 1]);
+                    StudentObj[t1 - 1].gradeSummary();
                     break;
                 case 7:
                     cout << "Enter roll ID for gender : ";
