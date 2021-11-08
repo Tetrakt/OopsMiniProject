@@ -60,7 +60,7 @@ public:
     friend class Faculty;
 };
 
-class Student : virtual protected DataBase //20 instances, subclass
+class Student : virtual protected DataBase //20instances, subclass
 {
 private:
     char section;
@@ -403,136 +403,9 @@ void Faculty::writeToFile_faculty(Faculty FacultyObj[])
 class Masters : public Student, public Faculty
 {
 private:
-    char section;
-    int grade;
-    char subj[3];      //masters to be done in 1 subj only
-    const int batchyr; //batch year
-    int rollNum;
-    static int masterCount;
-
 public:
     //functions
-    Masters() : batchyr(14) // default constructor + init list
-    {
-        age = 0;
-        section = ' '; // one param
-        gender = ' ';
-        subj[3] = 'A';
-    }
-    Masters(int birthYear) : batchyr(14)
-    {
-        this->birthYear = birthYear;
-    }
-    void createMaster();
-    void displayMaster();
-    void printMasterDB(Masters *);
-    void modifyMaster();
-    void updateMasterGrade(); // convert to a friend?
-    //void gradeSummary(); no need here
-    void printDepartments(); //depts for a master
-    void writeToFile_stud(Masters *);
-    friend void printGender(Masters);
-    ~Masters()
-    {
-        cout << "Masters Destructor, Masters deleted";
-    }
 };
-int Masters::masterCount = 1;
-void Masters::createMaster()
-{
-    int u;
-    cout << "\n CREATING A MASTER..." << endl;
-    cout << "Enter Master Name: ";
-    cin >> name;
-    //enter uniqueID, if not uq, exit this func
-    cout << "\nEnter Unique Master ID : ";
-    cin >> u; // store input temporaily
-    if (uIDlist_isUnique(u))
-    {
-        uniqueID = u;
-        uIdlist_insert(u);
-    }
-    else
-    {
-        cout << "\n ID entered already exists.";
-        exit(0);
-    }
-    cout << "\nEnter age : ";
-    cin >> age;
-    cout << "\nEnter Birth Year";
-    cin >> birthYear;
-    cout << "\nEnter Section : ";
-    cin >> section;
-    cout << "\n Enter gender: ";
-    cin >> gender;
-    cout << "\n Subject : ";
-    cin >> subj;
-    //Student::studentCount++;
-    rollNum = Masters::masterCount++;
-    cout << "Roll ID assigned : " << rollNum << endl;
-    cout << " * MASTER DATA CREATED SUCCESFULLY \n";
-}
-void Masters::displayMaster()
-{
-    cout << "Name : " << this->name << endl;
-    cout << "Unique ID : " << this->uniqueID << endl;
-    cout << "Roll Number : " << this->rollNum << endl;
-    cout << "Age : " << this->age << endl;
-    cout << "Section : " << this->section << endl;
-    cout << "Gender : " << this->gender << endl;
-    cout << "Subject : " << this->subj << endl;
-}
-void Masters::printMasterDB(Masters MastersObj[])
-{
-    for (int i = 0; i < Masters::masterCount; i++)
-        MastersObj[i].displayMaster();
-}
-void Masters::modifyMaster()
-{
-    //Choose basis of roll num?? sent from main()?
-    int ch;
-    cout << "*MASTER TO BE MODIFIED*" << endl;
-    cout << "Name : " << this->name << endl;
-    cout << "\n menu list" << endl;
-    cout << " 1. Section " << endl;
-    cin >> ch;
-    switch (ch)
-    {
-        {
-        case 1:
-            cout << "Enter new Section: ";
-            cin >> this->section;
-        }
-        break;
-    default:
-    {
-        cout << "Invalid Option";
-    }
-    break;
-    }
-}
-void Masters::updateMasterGrade()
-{
-    int u;
-    cout << "\n Enter marks of the subject";
-    if (u >= 0 && u <= 100)
-    {
-        grade = u;
-    }
-    else
-    {
-        cout << "Invalid input \n";
-    }
-}
-void printGender(Masters obj)
-{
-    if (obj.gender == 'M' || obj.gender == 'm')
-        cout << "male" << endl;
-    else if (obj.gender == 'F' || obj.gender == 'f')
-        cout << "female" << endl;
-    else
-        cout << "Other gender" << endl;
-}
 
 inline void printMenu(int ch)
 {
@@ -561,14 +434,7 @@ inline void printMenu(int ch)
     else if (ch == 3)
     {
         //phd menu
-        cout << "1. enter data" << endl;
-        cout << "2. print all" << endl;
-        cout << "3. select 1" << endl; //  input for key
-        cout << "4. modify" << endl;
-        cout << "5. update grade" << endl;
-        cout << "7. gender detail" << endl;
-        cout << "8. update database" << endl;
-        cout << "0. Exit " << endl;
+        cout << "1. " << endl;
     }
 }
 inline void printMenu() //db menu, student or faculty
