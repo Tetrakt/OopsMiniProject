@@ -386,7 +386,7 @@ void Faculty::modifyFaculty()
 void Faculty::writeToFile_faculty(Faculty FacultyObj[])
 {
     ofstream file_obj;                      // Object to write in file
-    file_obj.open("Stud_db.txt", ios::out); // Opening file in append mode
+    file_obj.open("Faculty_db.txt", ios::out); // Opening file in append mode
     for (int i = 0; i < Faculty::facultyCount; i++)
     {
         file_obj << FacultyObj[i].name << " ";
@@ -430,7 +430,7 @@ public:
     void updateMasterGrade(); // convert to a friend?
     //void gradeSummary(); no need here
     void printDepartments(); //depts for a master
-    void writeToFile_stud(Masters *);
+    void writeToFile_masters(Masters *);
     friend void printGender(Masters);
     ~Masters()
     {
@@ -523,6 +523,24 @@ void Masters::updateMasterGrade()
     {
         cout << "Invalid input \n";
     }
+}
+void Masters::writeToFile_masters(Masters MastersObj[])
+{
+    ofstream file_obj;                      // Object to write in file
+    file_obj.open("Masters_db.txt", ios::out); // Opening file in append mode
+    for (int i = 0; i < Masters::masterCount; i++)
+    {
+        file_obj << MastersObj[i].name << " ";
+        file_obj << MastersObj[i].uniqueID << " ";
+        file_obj << MastersObj[i].rollNum << " ";
+        file_obj << MastersObj[i].age << " ";
+        file_obj << MastersObj[i].dept << " ";
+        file_obj << MastersObj[i].gender << " ";
+        file_obj << MastersObj[i].subj << " ";
+        file_obj << MastersObj[i].grade << " ";
+        file_obj << MastersObj[i].salary << endl;
+    }
+    file_obj.close();
 }
 void printGender(Masters obj)
 {
