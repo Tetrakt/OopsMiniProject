@@ -88,13 +88,13 @@ public:
     void gradeSummary();
     void printDepartments(); //depts for a student
     void writeToFile_stud(Student *);
-    friend void printGender(Student);
+    friend void printBasicData(Student);
     ~Student()
     {
         //cout << "Student Destructor, student deleted";
     }
 };
-int Student::studentCount = 1;
+int Student::studentCount = 0;
 void Student::createStudent()
 {
     int t;
@@ -130,7 +130,7 @@ void Student::createStudent()
     cout << "\n Subject 3 : ";
     cin >> subj3;
     //Student::studentCount++;
-    rollNum = Student::studentCount++;
+    rollNum = ++Student::studentCount;
     cout << "Roll ID assigned : " << rollNum << endl;
     cout << " * STUDENT DATA CREATED SUCCESFULLY \n";
 }
@@ -255,15 +255,12 @@ void Student::writeToFile_stud(Student StudentObj[])
     }
     file_obj.close();
 }
-void printGender(Student obj)
+void printBasicData(Student obj)
 {
-    if (obj.gender == 'M' || obj.gender == 'm')
-        cout << "male" << endl;
-    else if (obj.gender == 'F' || obj.gender == 'f')
-        cout << "female" << endl;
-    else
-        cout << "Other gender" << endl;
+    cout << "Name : " << obj.name << endl;
+    cout << " Age : " << obj.age << endl;
 }
+
 class Faculty : virtual protected DataBase //5 instances //subclass
 {
 protected:
@@ -279,6 +276,7 @@ public:
     void printFacultyDB(Faculty *);
     void modifyFaculty();
     void writeToFile_faculty(Faculty *);
+    friend void printBasicData(Faculty);
     //print dept, for student?
     Faculty()
     {
@@ -298,7 +296,7 @@ public:
         //cout << "Faculty destructor";
     }
 };
-int Faculty::facultyCount = 1;
+int Faculty::facultyCount = 0;
 void Faculty::createFaculty()
 {
     int t;
@@ -327,7 +325,7 @@ void Faculty::createFaculty()
     cin >> dept;
     cout << "\n Enter salary : ";
     cin >> salary;
-    rollNum = Faculty::facultyCount++;
+    rollNum = ++Faculty::facultyCount;
     cout << "Roll ID assigned : " << rollNum << endl;
     cout << " * FACULTY DATA CREATED SUCCESFULLY \n";
 }
@@ -393,6 +391,11 @@ void Faculty::writeToFile_faculty(Faculty FacultyObj[])
     }
     file_obj.close();
 }
+void printBasicData(Faculty obj)
+{
+    cout << "Name : " << obj.name << endl;
+    cout << "Department : " << obj.dept << endl;
+}
 
 class Masters : public Student, public Faculty
 {
@@ -421,17 +424,15 @@ public:
     void displayMaster();
     void printMasterDB(Masters *);
     void modifyMaster();
-    void updateMasterGrade(); // convert to a friend?
-    //void gradeSummary(); no need here
+    void updateMasterGrade();
     void printDepartments(); //depts for a master
     void writeToFile_masters(Masters *);
-    friend void printGender(Masters);
     ~Masters()
     {
         //cout << "Masters Destructor, Masters deleted";
     }
 };
-int Masters::masterCount = 1;
+int Masters::masterCount = 0;
 void Masters::createMaster()
 {
     int u;
@@ -461,8 +462,7 @@ void Masters::createMaster()
     cin >> gender;
     cout << "\n Subject : ";
     cin >> subj;
-    //Student::studentCount++;
-    rollNum = Masters::masterCount++;
+    rollNum = ++Masters::masterCount;
     cout << "Roll ID assigned : " << rollNum << endl;
     cout << " * MASTER DATA CREATED SUCCESFULLY \n";
 }
@@ -485,9 +485,9 @@ void Masters::modifyMaster()
 {
     //Choose basis of roll num?? sent from main()?
     int ch;
-    cout << "*MASTER TO BE MODIFIED*" << endl;
+    cout << "* MASTER TO BE MODIFIED *" << endl;
     cout << "Name : " << this->name << endl;
-    cout << "\n menu list" << endl;
+    cout << "\n MENU" << endl;
     cout << " 1. Section " << endl;
     cin >> ch;
     switch (ch)
@@ -536,52 +536,43 @@ void Masters::writeToFile_masters(Masters MastersObj[])
     }
     file_obj.close();
 }
-void printGender(Masters obj)
-{
-    if (obj.gender == 'M' || obj.gender == 'm')
-        cout << "male" << endl;
-    else if (obj.gender == 'F' || obj.gender == 'f')
-        cout << "female" << endl;
-    else
-        cout << "Other gender" << endl;
-}
 
 inline void printMenu(int ch)
 {
     if (ch == 1) //student menu
     {
         cout << "STUDENT MENU : " << endl;
-        cout << "1. enter data" << endl;
-        cout << "2. print all" << endl;
-        cout << "3. select 1" << endl; //  input for key
-        cout << "4. modify" << endl;
-        cout << "5. update grades" << endl;
-        cout << "6. grade summary" << endl;
-        cout << "7. gender detail" << endl;
-        cout << "8. update database" << endl;
+        cout << "1. New Entry" << endl;
+        cout << "2. Print All Entries" << endl;
+        cout << "3. Print one Entry" << endl; //  input for key
+        cout << "4. Modify enty" << endl;
+        cout << "5. Update grades" << endl;
+        cout << "6. Grade summary" << endl;
+        cout << "7. Print Public Data" << endl;
+        cout << "8. Update database to file" << endl;
         cout << "0. Exit " << endl;
     }
     else if (ch == 2)
     {
         //faculty menu
-        cout << "1. enter data" << endl;
-        cout << "2. print all" << endl;
-        cout << "3. select 1" << endl;
-        cout << "4. modify" << endl;
-        cout << "5. update database" << endl;
+        cout << "1. New Entry" << endl;
+        cout << "2. Print All Entries" << endl;
+        cout << "3. Print One Entry" << endl;
+        cout << "4. Modify Entry" << endl;
+        cout << "5. Update database to file" << endl;
         cout << "0. Exit" << endl;
     }
     else if (ch == 3)
     {
         //phd menu
         cout << "PHD MENU " << endl;
-        cout << "1. enter data" << endl;
-        cout << "2. print all" << endl;
-        cout << "3. select 1" << endl; //  input for key
-        cout << "4. modify" << endl;
+        cout << "1. New Entry" << endl;
+        cout << "2. Print All Entries" << endl;
+        cout << "3. Print one Entry" << endl; //  input for key
+        cout << "4. Modify Entry" << endl;
         cout << "5. update grade" << endl;
-        cout << "6. gender detail" << endl;
-        cout << "7. update database" << endl;
+        cout << "6. Print Public Data" << endl;
+        cout << "7. Update database" << endl;
         cout << "0. Exit " << endl;
     }
 }
@@ -589,10 +580,10 @@ inline void printMenu() //db menu, student or faculty
 {
     //student, faculty or phd
     cout << "University DataBase System" << endl;
-    cout << " 1. student db" << endl;
-    cout << " 2. faculty db" << endl;
+    cout << " 1. Student db" << endl;
+    cout << " 2. Faculty db" << endl;
     cout << " 3. PHD db" << endl;
-    cout << " 4. exit " << endl;
+    cout << " 4. Exit " << endl;
 }
 
 int main()
@@ -603,21 +594,20 @@ int main()
     for (int i = 0; i < STUDENTS_COUNT; i++)
     {
         Student(2000);
-        //or
         //Student(i+1); setting roll number too.
     }
     for (int i = 0; i < FACULTY_COUNT; i++)
     {
-        //  Faculty(50000);
+        Faculty(50000);
     }
     for (int i = 0; i < PHD_COUNT; i++)
     {
         Masters(1986);
     }
-    int t1, t2, t3; //rename
+    int t1, t2, t3;
     int ch1 = -1, ch2 = -1;
     cout << "University DataBase Management System" << endl;
-    //passkey verification ?
+
     printMenu();
     cin >> ch1;
     while (ch1 != 4)
@@ -661,7 +651,7 @@ int main()
                 case 7:
                     cout << "Enter roll ID for gender : ";
                     cin >> t1;
-                    printGender(StudentObj[t1 - 1]);
+                    printBasicData(StudentObj[t1 - 1]);
                     break;
                 case 8:
                     StudentObj->writeToFile_stud(StudentObj);
@@ -700,6 +690,11 @@ int main()
                 case 8:
                     FacultyObj->writeToFile_faculty(FacultyObj);
                     break;
+                case 9:
+                    cout << "Enter Roll ID";
+                    cin >> t1;
+                    printBasicData(FacultyObj[t1 - 1]);
+                    break;
                 default:
                     break;
                 }
@@ -737,9 +732,9 @@ int main()
                     MasterObj[t1 - 1].updateMasterGrade();
                     break;
                 case 6:
-                    cout << "Enter roll ID for gender : ";
+                    cout << "Enter roll ID for SOMETHING : ";
                     cin >> t1;
-                    printGender(MasterObj[t1 - 1]);
+                    //printGender(MasterObj[t1 - 1]); FIX THIS BIT
                     break;
                 case 7:
                     MasterObj->writeToFile_stud(MasterObj);
