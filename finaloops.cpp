@@ -64,9 +64,7 @@ class Student : virtual protected DataBase //20 instances, subclass
 private:
     char section;
     int grades[6];
-    char subj1[3]; //might get renamed to subj
-    char subj2[3];
-    char subj3[3];
+    string subj1, subj2, subj3;
     const int batchyr; //batch year
     int rollNum;
     static int studentCount;
@@ -77,9 +75,6 @@ public:
         age = 0;
         section = ' '; // one param
         gender = ' ';
-        subj1[0] = subj1[1] = subj1[2] = 'A';
-        subj2[0] = subj2[1] = subj2[2] = 'A';
-        subj3[0] = subj3[1] = subj3[2] = 'A';
     }
     Student(int birthYear) : batchyr(18)
     {
@@ -96,7 +91,7 @@ public:
     friend void printGender(Student);
     ~Student()
     {
-        cout << "Student Destructor, student deleted";
+        //cout << "Student Destructor, student deleted";
     }
 };
 int Student::studentCount = 1;
@@ -300,7 +295,7 @@ public:
     }
     ~Faculty()
     {
-        cout << "Faculty destructor";
+        //cout << "Faculty destructor";
     }
 };
 int Faculty::facultyCount = 1;
@@ -384,7 +379,7 @@ void Faculty::modifyFaculty()
 
 void Faculty::writeToFile_faculty(Faculty FacultyObj[])
 {
-    ofstream file_obj;                      // Object to write in file
+    ofstream file_obj;                         // Object to write in file
     file_obj.open("Faculty_db.txt", ios::out); // Opening file in append mode
     for (int i = 0; i < Faculty::facultyCount; i++)
     {
@@ -433,7 +428,7 @@ public:
     friend void printGender(Masters);
     ~Masters()
     {
-        cout << "Masters Destructor, Masters deleted";
+        //cout << "Masters Destructor, Masters deleted";
     }
 };
 int Masters::masterCount = 1;
@@ -525,7 +520,7 @@ void Masters::updateMasterGrade()
 }
 void Masters::writeToFile_masters(Masters MastersObj[])
 {
-    ofstream file_obj;                      // Object to write in file
+    ofstream file_obj;                         // Object to write in file
     file_obj.open("Masters_db.txt", ios::out); // Opening file in append mode
     for (int i = 0; i < Masters::masterCount; i++)
     {
@@ -555,6 +550,7 @@ inline void printMenu(int ch)
 {
     if (ch == 1) //student menu
     {
+        cout << "STUDENT MENU : " << endl;
         cout << "1. enter data" << endl;
         cout << "2. print all" << endl;
         cout << "3. select 1" << endl; //  input for key
@@ -572,12 +568,13 @@ inline void printMenu(int ch)
         cout << "2. print all" << endl;
         cout << "3. select 1" << endl;
         cout << "4. modify" << endl;
-        cout << "5.update database" << endl;
+        cout << "5. update database" << endl;
         cout << "0. Exit" << endl;
     }
     else if (ch == 3)
     {
         //phd menu
+        cout << "PHD MENU " << endl;
         cout << "1. enter data" << endl;
         cout << "2. print all" << endl;
         cout << "3. select 1" << endl; //  input for key
@@ -591,6 +588,7 @@ inline void printMenu(int ch)
 inline void printMenu() //db menu, student or faculty
 {
     //student, faculty or phd
+    cout << "University DataBase System" << endl;
     cout << " 1. student db" << endl;
     cout << " 2. faculty db" << endl;
     cout << " 3. PHD db" << endl;
@@ -601,7 +599,7 @@ int main()
 {
     Student *StudentObj = new Student[STUDENTS_COUNT];
     Faculty *FacultyObj = new Faculty[FACULTY_COUNT];
-    Masters *MasterObj= new Masters[PHD_COUNT];
+    Masters *MasterObj = new Masters[PHD_COUNT];
     for (int i = 0; i < STUDENTS_COUNT; i++)
     {
         Student(2000);
@@ -612,7 +610,7 @@ int main()
     {
         //  Faculty(50000);
     }
-     for (int i = 0; i < PHD_COUNT; i++)
+    for (int i = 0; i < PHD_COUNT; i++)
     {
         Masters(1986);
     }
@@ -622,51 +620,7 @@ int main()
     //passkey verification ?
     printMenu();
     cin >> ch1;
-    while(ch1==3)
-    {
-        while(ch2!=0)
-        {
-            printMenu(ch1);
-            cin>>ch2;
-            switch(ch2)
-            {
-                case 0: 
-                    break;
-                  case 1:
-                    MasterObj->createMaster();
-                    break;
-                case 2:
-                    MasterObj->printMasterDB(MasterObj); //pass array of objs
-                    break;
-                case 3:
-                    cout << "Enter Roll Number 1 to master count : ";
-                    cin >> t1;
-                    //MasterObj->displayMaster(MasterObj[t1 - 1]); //t1-1 as roll num from 1, but array from 0
-                    MasterObj[t1 - 1].displayMaster();
-                    break;
-                case 4:
-                    cout << "Enter Roll Number to modify : ";
-                    cin >> t1;
-                    MasterObj[t1 - 1].modifyMaster();
-                case 5:
-                    cout << "Enter roll id to update grades : ";
-                    cin >> t1;
-                    MasterObj[t1 - 1].updateMasterGrade();
-                    break;
-                case 6:
-                    cout << "Enter roll ID for gender : ";
-                    cin >> t1;
-                    printGender(MasterObj[t1 - 1]);
-                    break;
-                case 7:
-                    MasterObj->writeToFile_stud(MasterObj);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-    while (ch1 != 3)
+    while (ch1 != 4)
     {
         if (ch1 == 1)
         {
@@ -751,12 +705,54 @@ int main()
                 }
             }
         }
+        else if (ch1 == 3)
+        {
+            while (ch2 != 0)
+            {
+                printMenu(ch1);
+                cin >> ch2;
+                switch (ch2)
+                {
+                case 0:
+                    break;
+                case 1:
+                    MasterObj->createMaster();
+                    break;
+                case 2:
+                    MasterObj->printMasterDB(MasterObj); //pass array of objs
+                    break;
+                case 3:
+                    cout << "Enter Roll Number 1 to master count : ";
+                    cin >> t1;
+                    //MasterObj->displayMaster(MasterObj[t1 - 1]); //t1-1 as roll num from 1, but array from 0
+                    MasterObj[t1 - 1].displayMaster();
+                    break;
+                case 4:
+                    cout << "Enter Roll Number to modify : ";
+                    cin >> t1;
+                    MasterObj[t1 - 1].modifyMaster();
+                case 5:
+                    cout << "Enter roll id to update grades : ";
+                    cin >> t1;
+                    MasterObj[t1 - 1].updateMasterGrade();
+                    break;
+                case 6:
+                    cout << "Enter roll ID for gender : ";
+                    cin >> t1;
+                    printGender(MasterObj[t1 - 1]);
+                    break;
+                case 7:
+                    MasterObj->writeToFile_stud(MasterObj);
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
         printMenu();
         cin >> ch1;
         ch2 = -1;
     }
-
-
     delete[] StudentObj;
     delete[] FacultyObj;
     delete[] MasterObj;
