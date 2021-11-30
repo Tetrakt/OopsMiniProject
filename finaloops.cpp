@@ -2,18 +2,14 @@
 #include <string.h>
 #include <fstream>
 
-#define STUDENTS_COUNT 5 //max of each
+#define STUDENTS_COUNT 25 //max of each
 #define FACULTY_COUNT 2
 #define PHD_COUNT 1
-
-#define FDD_PASSKEY "Faculty@737" //passkey for faculty db
-#define SDB_PASSKEY "Student#000" //passkey for Student db
 
 using namespace std;
 
 int uIDlist[25]; //student,faculty,phd count
 int db_count = 0;
-//find better soln.
 void uIDlist_set()
 {
     for (int i = 0; i < 25; i++)
@@ -67,9 +63,9 @@ private:
     string subj1, subj2, subj3;
     const int batchyr; //batch year
     int rollNum;
-    static int studentCount;
 
 public:
+    static int studentCount;
     Student() : batchyr(18) // default constructor + init list
     {
         age = 0;
@@ -242,6 +238,7 @@ void Student::writeToFile_stud(Student StudentObj[])
     file_obj.open("Stud_db.txt", ios::out); // Opening file in append mode
     for (int i = 0; i < Student::studentCount; i++)
     {
+        //can replace blank with , to make it a csv
         file_obj << StudentObj[i].name << " ";
         file_obj << StudentObj[i].uniqueID << " ";
         file_obj << StudentObj[i].rollNum << " ";
@@ -266,11 +263,12 @@ class Faculty : virtual protected DataBase //5 instances //subclass
 protected:
     int salary;
     char dept[3];
-    static int facultyCount;
+
     int rollNum;
 
 public:
     //void display();
+    static int facultyCount;
     void createFaculty();
     void displayFaculty();
     void printFacultyDB(Faculty *);
@@ -405,10 +403,10 @@ private:
     char subj[3];      //masters to be done in 1 subj only
     const int batchyr; //batch year
     int rollNum;
-    static int masterCount;
 
 public:
     //functions
+    static int masterCount;
     Masters() : batchyr(14) // default constructor + init list
     {
         age = 0;
@@ -623,7 +621,9 @@ int main()
                 case 0:
                     break;
                 case 1:
-                    StudentObj->createStudent();
+                    //StudentObj->createStudent();
+                    // t2 = Student::studentCount + 1;
+                    StudentObj[Student::studentCount].createStudent();
                     break;
                 case 2:
                     StudentObj->printStudentDB(StudentObj); //pass array of objs
@@ -672,7 +672,7 @@ int main()
                 case 0:
                     break;
                 case 1:
-                    FacultyObj->createFaculty();
+                    FacultyObj[Faculty::facultyCount].createFaculty();
                     break;
                 case 2:
                     FacultyObj->printFacultyDB(FacultyObj);
@@ -711,7 +711,7 @@ int main()
                 case 0:
                     break;
                 case 1:
-                    MasterObj->createMaster();
+                    MasterObj[Masters::masterCount].createMaster();
                     break;
                 case 2:
                     MasterObj->printMasterDB(MasterObj); //pass array of objs
