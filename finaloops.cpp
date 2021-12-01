@@ -57,6 +57,17 @@ public:
     friend class Faculty;
 };
 
+class uID_Exception
+{
+public:
+    int uID;
+    uID_Exception(int i)
+    {
+        uID=i;
+    }
+
+};
+
 class Student : virtual protected DataBase //20 instances, subclass
 {
 private:
@@ -100,17 +111,21 @@ void Student::create()
     cout << "Enter Student Name: ";
     cin >> name;
     //enter uniqueID, if not uq, exit this func
-    cout << "\nEnter Unique Student ID : ";
-    cin >> t; // store input temporaily
-    if (uIDlist_isUnique(t))
+    try
     {
+        cout << "\nEnter Unique Student ID : ";
+        cin >> t; // store input temporaily
+        if (!uIDlist_isUnique(t))
+        {
+            throw uID_Exception(t);
+        } 
         uniqueID = t;
         //insert into it
         uIdlist_insert(t);
     }
-    else
+    catch(uID_Exception e)
     {
-        cout << "\n ID entered already exists.";
+        cout << "\n ID entered "<< e.uID<< " already exists.";
         exit(0);
     }
     cout << "\nEnter age : ";
@@ -303,16 +318,21 @@ void Faculty::create()
     cout << "\n CREATING A Faculty..." << endl;
     cout << "Enter Faculty Name: ";
     cin >> name;
-    cout << "\n Enter Unique Faculty ID : ";
-    cin >> t; // store input temporaily
-    if (uIDlist_isUnique(t))
+     try
     {
+        cout << "\nEnter Unique Faculty ID : ";
+        cin >> t; // store input temporaily
+        if (!uIDlist_isUnique(t))
+        {
+            throw uID_Exception(t);
+        } 
         uniqueID = t;
+        //insert into it
         uIdlist_insert(t);
     }
-    else
+    catch(uID_Exception e)
     {
-        cout << "\n ID entered already exists.";
+        cout << "\n ID entered "<< e.uID<< " already exists.";
         exit(0);
     }
     cout << "\nEnter age : ";
@@ -440,16 +460,21 @@ void Masters::create()
     cout << "Enter Master Name: ";
     cin >> name;
     //enter uniqueID, if not uq, exit this func
-    cout << "\nEnter Unique Master ID : ";
-    cin >> u; // store input temporaily
-    if (uIDlist_isUnique(u))
+    try
     {
+        cout << "\nEnter Unique Master ID : ";
+        cin >> u; // store input temporaily
+        if (!uIDlist_isUnique(u))
+        {
+            throw uID_Exception(u);
+        } 
         uniqueID = u;
+        //insert into it
         uIdlist_insert(u);
     }
-    else
+    catch(uID_Exception e)
     {
-        cout << "\n ID entered already exists.";
+        cout << "\n ID entered "<< e.uID<< " already exists.";
         exit(0);
     }
     cout << "\nEnter age : ";
