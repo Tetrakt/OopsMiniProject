@@ -49,7 +49,9 @@ protected: // protected not private
     }
 
 public:
-    void display(DataBase);    //todo
+    virtual void display()=0;    //pure virtual function
+    virtual void create()=0;
+    virtual void modify()=0;
     void printAll(DataBase *); //todo
     friend class Student;      // thus db can access
     friend class Faculty;
@@ -76,10 +78,10 @@ public:
     {
         this->birthYear = birthYear;
     }
-    void createStudent();
-    void displayStudent();
+    void create();
+    void display();
     void printStudentDB(Student *);
-    void modifyStudent();
+    void modify();
     void updateGrades(); // convert to a friend?
     void gradeSummary();
     void printDepartments(); //depts for a student
@@ -91,7 +93,7 @@ public:
     }
 };
 int Student::studentCount = 0;
-void Student::createStudent()
+void Student::create()
 {
     int t;
     cout << "\n CREATING A STUDENT..." << endl;
@@ -130,7 +132,7 @@ void Student::createStudent()
     cout << "Roll ID assigned : " << rollNum << endl;
     cout << " * STUDENT DATA CREATED SUCCESFULLY \n";
 }
-void Student::displayStudent()
+void Student::display()
 {
     cout << "Name : " << this->name << endl;
     cout << "Unique ID : " << this->uniqueID << endl;
@@ -145,9 +147,9 @@ void Student::displayStudent()
 void Student::printStudentDB(Student StudentObj[])
 {
     for (int i = 0; i < Student::studentCount; i++)
-        StudentObj[i].displayStudent();
+        StudentObj[i].display();
 }
-void Student::modifyStudent()
+void Student::modify()
 {
     //Choose basis of roll num?? sent from main()?
     int ch;
@@ -269,10 +271,10 @@ protected:
 public:
     //void display();
     static int facultyCount;
-    void createFaculty();
-    void displayFaculty();
+    void create();
+    void display();
     void printFacultyDB(Faculty *);
-    void modifyFaculty();
+    void modify();
     void writeToFile_faculty(Faculty *);
     friend void printBasicData(Faculty);
     //print dept, for student?
@@ -295,7 +297,7 @@ public:
     }
 };
 int Faculty::facultyCount = 0;
-void Faculty::createFaculty()
+void Faculty::create()
 {
     int t;
     cout << "\n CREATING A Faculty..." << endl;
@@ -327,7 +329,7 @@ void Faculty::createFaculty()
     cout << "Roll ID assigned : " << rollNum << endl;
     cout << " * FACULTY DATA CREATED SUCCESFULLY \n";
 }
-void Faculty::displayFaculty()
+void Faculty::display()
 {
     cout << "Name : " << this->name << endl;
     cout << "Unique Faculty ID : " << this->uniqueID << endl;
@@ -340,9 +342,9 @@ void Faculty::displayFaculty()
 void Faculty::printFacultyDB(Faculty FacultyObj[])
 {
     for (int i = 0; i < facultyCount; i++)
-        FacultyObj[i].displayFaculty();
+        FacultyObj[i].display();
 }
-void Faculty::modifyFaculty()
+void Faculty::modify()
 {
     int ch;
     cout << "*Faculty TO BE MODIFIED*" << endl;
@@ -418,10 +420,10 @@ public:
     {
         this->birthYear = birthYear;
     }
-    void createMaster();
-    void displayMaster();
+    void create();
+    void display();
     void printMasterDB(Masters *);
-    void modifyMaster();
+    void modify();
     void updateMasterGrade();
     void printDepartments(); //depts for a master
     void writeToFile_masters(Masters *);
@@ -431,7 +433,7 @@ public:
     }
 };
 int Masters::masterCount = 0;
-void Masters::createMaster()
+void Masters::create()
 {
     int u;
     cout << "\n CREATING A MASTER..." << endl;
@@ -464,7 +466,7 @@ void Masters::createMaster()
     cout << "Roll ID assigned : " << rollNum << endl;
     cout << " * MASTER DATA CREATED SUCCESFULLY \n";
 }
-void Masters::displayMaster()
+void Masters::display()
 {
     cout << "Name : " << this->name << endl;
     cout << "Unique ID : " << this->uniqueID << endl;
@@ -477,9 +479,9 @@ void Masters::displayMaster()
 void Masters::printMasterDB(Masters MastersObj[])
 {
     for (int i = 0; i < Masters::masterCount; i++)
-        MastersObj[i].displayMaster();
+        MastersObj[i].display();
 }
-void Masters::modifyMaster()
+void Masters::modify()
 {
     //Choose basis of roll num?? sent from main()?
     int ch;
@@ -623,7 +625,7 @@ int main()
                 case 1:
                     //StudentObj->createStudent();
                     // t2 = Student::studentCount + 1;
-                    StudentObj[Student::studentCount].createStudent();
+                    StudentObj[Student::studentCount].create();
                     break;
                 case 2:
                     StudentObj->printStudentDB(StudentObj); //pass array of objs
@@ -632,12 +634,12 @@ int main()
                     cout << "Enter Roll Number 1 to student count : ";
                     cin >> t1;
                     //StudentObj->displayStudent(StudentObj[t1 - 1]); //t1-1 as roll num from 1, but array from 0
-                    StudentObj[t1 - 1].displayStudent();
+                    StudentObj[t1 - 1].display();
                     break;
                 case 4:
                     cout << "Enter Roll Number to modify : ";
                     cin >> t1;
-                    StudentObj[t1 - 1].modifyStudent();
+                    StudentObj[t1 - 1].modify();
                 case 5:
                     cout << "Enter roll id to update grades : ";
                     cin >> t1;
@@ -672,7 +674,7 @@ int main()
                 case 0:
                     break;
                 case 1:
-                    FacultyObj[Faculty::facultyCount].createFaculty();
+                    FacultyObj[Faculty::facultyCount].create();
                     break;
                 case 2:
                     FacultyObj->printFacultyDB(FacultyObj);
@@ -680,12 +682,12 @@ int main()
                 case 3:
                     cout << "Enter Faculty roll number : ";
                     cin >> t1;
-                    FacultyObj[t1 - 1].displayFaculty();
+                    FacultyObj[t1 - 1].display();
                     break;
                 case 4:
                     cout << "Enter Roll number to modify : ";
                     cin >> t1;
-                    FacultyObj[t1 - 1].modifyFaculty();
+                    FacultyObj[t1 - 1].modify();
                     break;
                 case 8:
                     FacultyObj->writeToFile_faculty(FacultyObj);
@@ -711,7 +713,7 @@ int main()
                 case 0:
                     break;
                 case 1:
-                    MasterObj[Masters::masterCount].createMaster();
+                    MasterObj[Masters::masterCount].create();
                     break;
                 case 2:
                     MasterObj->printMasterDB(MasterObj); //pass array of objs
@@ -720,12 +722,12 @@ int main()
                     cout << "Enter Roll Number 1 to master count : ";
                     cin >> t1;
                     //MasterObj->displayMaster(MasterObj[t1 - 1]); //t1-1 as roll num from 1, but array from 0
-                    MasterObj[t1 - 1].displayMaster();
+                    MasterObj[t1 - 1].display();
                     break;
                 case 4:
                     cout << "Enter Roll Number to modify : ";
                     cin >> t1;
-                    MasterObj[t1 - 1].modifyMaster();
+                    MasterObj[t1 - 1].modify();
                 case 5:
                     cout << "Enter roll id to update grades : ";
                     cin >> t1;
