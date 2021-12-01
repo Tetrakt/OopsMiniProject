@@ -1,12 +1,21 @@
-class lol
+class student
 {
-    friend void something();
+public:
+    void getfacultyDept();
+    friend void faculty::getStudentGrades();
 };
 
-something()
+class faculty
+{
+public:
+    friend void student::getfacultyDept();
+    void getStudentGrades();
+};
+
+void student::getfacultyDept()
 {
 }
-void main()
+void faculty::getStudentGrades()
 {
-    something(); //function call
+    
 }

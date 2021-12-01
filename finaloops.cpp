@@ -97,6 +97,8 @@ public:
     void printDepartments(); //depts for a student
     void writeToFile_stud(Student *);
     friend void printBasicData(Student);
+    void getFacultyDept();
+    friend void Faculty::getStudentGrades();
     ~Student()
     {
         //cout << "Student Destructor, student deleted";
@@ -278,6 +280,10 @@ void printBasicData(Student obj)
     cout << "Name : " << obj.name << endl;
     cout << " Age : " << obj.age << endl;
 }
+void Student::getFacultyDept()
+{
+    cout << " " << endl;
+}
 
 class Faculty : virtual protected DataBase //5 instances //subclass
 {
@@ -296,7 +302,10 @@ public:
     void modify();
     void writeToFile_faculty(Faculty *);
     friend void printBasicData(Faculty);
-    //print dept, for student?
+
+    void getStudentGrades();
+    friend void Student::getFacultyDept();
+
     Faculty()
     {
         name = " ";
@@ -423,6 +432,10 @@ void printBasicData(Faculty obj)
 {
     cout << "Name : " << obj.name << endl;
     cout << "Department : " << obj.dept << endl;
+}
+void Faculty::getStudentGrades()
+{
+    cout << "Something" << endl;
 }
 
 class Masters : public Student, public Faculty
