@@ -359,15 +359,16 @@ inline void FacultyTable()
 }
 void Faculty::display()
 {
-    cout << "Name : " << this->name << endl;
-    cout << "Unique Faculty ID : " << this->uniqueID << endl;
-    cout << "Age : " << this->age << endl;
-    cout << "Gender : " << this->gender << endl;
-    cout << "Department : " << this->dept << endl;
-    cout << "Salary : " << this->salary << endl;
+    cout << this->name;
+    cout << "\t" << this->uniqueID;
+    cout << "\t" << this->age;
+    cout << "\t" << this->gender;
+    cout << "\t" << this->dept;
+    cout << "\t" << this->salary << endl;
 }
 void Faculty::printFacultyDB(Faculty FacultyObj[])
 {
+    FacultyTable();
     for (int i = 0; i < facultyCount; i++)
         FacultyObj[i].display();
 }
@@ -376,7 +377,7 @@ void Faculty::modify()
     int ch;
     cout << "*Faculty TO BE MODIFIED*" << endl;
     cout << "Name : " << this->name << endl;
-    cout << "\n menu list" << endl;
+    cout << "\n MENU LIST" << endl;
     cout << " 1. Department " << endl;
     cout << " 2. Salary " << endl;
     cin >> ch;
@@ -498,18 +499,23 @@ void Masters::create()
     cout << "Roll ID assigned : " << rollNum << endl;
     cout << " * MASTER DATA CREATED SUCCESFULLY \n";
 }
+inline void MasterTable()
+{
+    cout << "Name Unique ID RollNum Age Section Gender Subject" << endl;
+}
 void Masters::display()
 {
-    cout << "Name : " << this->name << endl;
-    cout << "Unique ID : " << this->uniqueID << endl;
-    cout << "Roll Number : " << this->rollNum << endl;
-    cout << "Age : " << this->age << endl;
-    cout << "Section : " << this->section << endl;
-    cout << "Gender : " << this->gender << endl;
-    cout << "Subject : " << this->subj << endl;
+    cout << this->name;
+    cout << "\t" << this->uniqueID;
+    cout << "\t" << this->rollNum;
+    cout << "\t" << this->age;
+    cout << "\t" << this->section;
+    cout << "\t" << this->gender;
+    cout << "\t" << this->subj << endl;
 }
 void Masters::printMasterDB(Masters MastersObj[])
 {
+    MasterTable();
     for (int i = 0; i < Masters::masterCount; i++)
         MastersObj[i].display();
 }
@@ -715,6 +721,7 @@ int main()
                 case 3:
                     cout << "Enter Faculty roll number : ";
                     cin >> t1;
+                    FacultyTable();
                     FacultyObj[t1 - 1].display();
                     break;
                 case 4:
@@ -755,6 +762,7 @@ int main()
                     cout << "Enter Roll Number 1 to master count : ";
                     cin >> t1;
                     //MasterObj->displayMaster(MasterObj[t1 - 1]); //t1-1 as roll num from 1, but array from 0
+                    MasterTable();
                     MasterObj[t1 - 1].display();
                     break;
                 case 4:
