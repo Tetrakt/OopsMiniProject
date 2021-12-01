@@ -1,1 +1,12 @@
- cout << "\nEnter Unique Student ID : 
+class lol
+{
+    friend void something();
+};
+
+something()
+{
+}
+void main()
+{
+    something(); //function call
+}

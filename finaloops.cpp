@@ -49,9 +49,9 @@ protected: // protected not private
     }
 
 public:
-    virtual void display()=0;    //pure virtual function
-    virtual void create()=0;
-    virtual void modify()=0;
+    virtual void display() = 0; //pure virtual function
+    virtual void create() = 0;
+    virtual void modify() = 0;
     void printAll(DataBase *); //todo
     friend class Student;      // thus db can access
     friend class Faculty;
@@ -63,9 +63,8 @@ public:
     int uID;
     uID_Exception(int i)
     {
-        uID=i;
+        uID = i;
     }
-
 };
 
 class Student : virtual protected DataBase //20 instances, subclass
@@ -118,21 +117,21 @@ void Student::create()
         if (!uIDlist_isUnique(t))
         {
             throw uID_Exception(t);
-        } 
+        }
         uniqueID = t;
         //insert into it
         uIdlist_insert(t);
     }
-    catch(uID_Exception e)
+    catch (uID_Exception e)
     {
-        cout << "\n ID entered "<< e.uID<< " already exists.";
+        cout << "\n ID entered " << e.uID << " already exists.";
         exit(0);
     }
-    cout << "\nEnter age : ";
+    cout << "\n Enter age : ";
     cin >> age;
-    cout << "\nEnter Birth Year : ";
+    cout << "\n Enter Birth Year : ";
     cin >> birthYear;
-    cout << "\nEnter Section : ";
+    cout << "\n Enter Section : ";
     cin >> section;
     cout << "\n Enter gender: ";
     cin >> gender;
@@ -147,20 +146,25 @@ void Student::create()
     cout << "Roll ID assigned : " << rollNum << endl;
     cout << " * STUDENT DATA CREATED SUCCESFULLY \n";
 }
+inline void StudentTable() // small helper function to format output
+{
+    cout << "Name Unique ID RollNum Age Section Gender Subject1 Subject2 Subject3" << endl;
+}
 void Student::display()
 {
-    cout << "Name : " << this->name << endl;
-    cout << "Unique ID : " << this->uniqueID << endl;
-    cout << "Roll Number : " << this->rollNum << endl;
-    cout << "Age : " << this->age << endl;
-    cout << "Section : " << this->section << endl;
-    cout << "Gender : " << this->gender << endl;
-    cout << "Subject 1 : " << this->subj1 << endl;
-    cout << "Subject 2 : " << this->subj2 << endl;
-    cout << "Subject 3 : " << this->subj3 << endl;
+    cout << this->name;
+    cout << "\t" << this->uniqueID;
+    cout << "\t" << this->rollNum;
+    cout << "\t" << this->age;
+    cout << "\t" << this->section;
+    cout << "\t" << this->gender;
+    cout << "\t" << this->subj1;
+    cout << "\t" << this->subj2;
+    cout << "\t" << this->subj3 << endl;
 }
 void Student::printStudentDB(Student StudentObj[])
 {
+    StudentTable();
     for (int i = 0; i < Student::studentCount; i++)
         StudentObj[i].display();
 }
@@ -318,21 +322,21 @@ void Faculty::create()
     cout << "\n CREATING A Faculty..." << endl;
     cout << "Enter Faculty Name: ";
     cin >> name;
-     try
+    try
     {
         cout << "\nEnter Unique Faculty ID : ";
         cin >> t; // store input temporaily
         if (!uIDlist_isUnique(t))
         {
             throw uID_Exception(t);
-        } 
+        }
         uniqueID = t;
         //insert into it
         uIdlist_insert(t);
     }
-    catch(uID_Exception e)
+    catch (uID_Exception e)
     {
-        cout << "\n ID entered "<< e.uID<< " already exists.";
+        cout << "\n ID entered " << e.uID << " already exists.";
         exit(0);
     }
     cout << "\nEnter age : ";
@@ -349,12 +353,15 @@ void Faculty::create()
     cout << "Roll ID assigned : " << rollNum << endl;
     cout << " * FACULTY DATA CREATED SUCCESFULLY \n";
 }
+inline void FacultyTable()
+{
+    cout << "Name Unique ID RollNum Age Section Gender Department  Subject1" << endl;
+}
 void Faculty::display()
 {
     cout << "Name : " << this->name << endl;
     cout << "Unique Faculty ID : " << this->uniqueID << endl;
     cout << "Age : " << this->age << endl;
-    cout << "Birth Year : " << this->birthYear << endl;
     cout << "Gender : " << this->gender << endl;
     cout << "Department : " << this->dept << endl;
     cout << "Salary : " << this->salary << endl;
@@ -467,14 +474,14 @@ void Masters::create()
         if (!uIDlist_isUnique(u))
         {
             throw uID_Exception(u);
-        } 
+        }
         uniqueID = u;
         //insert into it
         uIdlist_insert(u);
     }
-    catch(uID_Exception e)
+    catch (uID_Exception e)
     {
-        cout << "\n ID entered "<< e.uID<< " already exists.";
+        cout << "\n ID entered " << e.uID << " already exists.";
         exit(0);
     }
     cout << "\nEnter age : ";
@@ -659,6 +666,7 @@ int main()
                     cout << "Enter Roll Number 1 to student count : ";
                     cin >> t1;
                     //StudentObj->displayStudent(StudentObj[t1 - 1]); //t1-1 as roll num from 1, but array from 0
+                    StudentTable();
                     StudentObj[t1 - 1].display();
                     break;
                 case 4:
