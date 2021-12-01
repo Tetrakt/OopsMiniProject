@@ -14,8 +14,8 @@ public:
 
 void student::getfacultyDept()
 {
+    needs roll num of faculty, and faculty obj.so pass obj only, this->dept;
 }
 void faculty::getStudentGrades()
 {
-    
 }

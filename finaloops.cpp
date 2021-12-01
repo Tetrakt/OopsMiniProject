@@ -10,6 +10,10 @@ using namespace std;
 
 int uIDlist[25]; //student,faculty,phd count
 int db_count = 0;
+
+class Faculty; // needed to make student faculty friend function work
+class Student;
+
 void uIDlist_set()
 {
     for (int i = 0; i < 25; i++)
@@ -53,8 +57,6 @@ public:
     virtual void create() = 0;
     virtual void modify() = 0;
     void printAll(DataBase *); //todo
-    friend class Student;      // thus db can access
-    friend class Faculty;
 };
 
 class uID_Exception
@@ -97,8 +99,8 @@ public:
     void printDepartments(); //depts for a student
     void writeToFile_stud(Student *);
     friend void printBasicData(Student);
-    void getFacultyDept();
-    friend void Faculty::getStudentGrades();
+    void getFacultyDept(Faculty);
+    friend void Faculty::getStudentGrades(Student);
     ~Student()
     {
         //cout << "Student Destructor, student deleted";
@@ -280,10 +282,6 @@ void printBasicData(Student obj)
     cout << "Name : " << obj.name << endl;
     cout << " Age : " << obj.age << endl;
 }
-void Student::getFacultyDept()
-{
-    cout << " " << endl;
-}
 
 class Faculty : virtual protected DataBase //5 instances //subclass
 {
@@ -302,9 +300,8 @@ public:
     void modify();
     void writeToFile_faculty(Faculty *);
     friend void printBasicData(Faculty);
-
-    void getStudentGrades();
-    friend void Student::getFacultyDept();
+    friend void Student::getFacultyDept(Faculty);
+    void getStudentGrades(Student);
 
     Faculty()
     {
@@ -325,6 +322,7 @@ public:
     }
 };
 int Faculty::facultyCount = 0;
+
 void Faculty::create()
 {
     int t;
@@ -433,9 +431,16 @@ void printBasicData(Faculty obj)
     cout << "Name : " << obj.name << endl;
     cout << "Department : " << obj.dept << endl;
 }
-void Faculty::getStudentGrades()
+
+//FS LINKING friend functions.
+//integrate to menu
+void Student::getFacultyDept(Faculty obj)
 {
-    cout << "Something" << endl;
+    cout << "Faculty dept : " << obj.dept << endl;
+}
+void Faculty::getStudentGrades(Student obj)
+{
+    //grade summary?
 }
 
 class Masters : public Student, public Faculty
