@@ -100,7 +100,8 @@ public:
     void writeToFile_stud(Student *);
     friend void printBasicData(Student);
     void getFacultyDept(Faculty);
-    friend void Faculty::getStudentGrades(Student);
+    //friend void Faculty::getStudentGrades(Student);
+    friend class Faculty;
     ~Student()
     {
         //cout << "Student Destructor, student deleted";
