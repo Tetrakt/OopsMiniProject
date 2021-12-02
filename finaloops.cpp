@@ -1,22 +1,28 @@
+/* TARUN TALREJA 180907632
+*  KRISHNA JAYKUMAR 180907
+*  RITHIKA IYER 18090
+*  CHINTAN ROUT 18090
+*  PARTH SIROHI 18090
+*/
 #include <iostream>
 #include <string.h>
 #include <fstream>
 
-#define STUDENTS_COUNT 25 //max of each
-#define FACULTY_COUNT 2
-#define PHD_COUNT 1
+#define STUDENTS_COUNT 5 //max of each
+#define FACULTY_COUNT 3
+#define PHD_COUNT 2
 
 using namespace std;
 
-int uIDlist[25]; //student,faculty,phd count
+int uIDlist[STUDENTS_COUNT + FACULTY_COUNT + PHD_COUNT]; //student,faculty,phd count
 int db_count = 0;
-
+int db_count_max = STUDENTS_COUNT + FACULTY_COUNT + PHD_COUNT;
 class Faculty; // needed to make student faculty friend function work
 class Student;
 
 void uIDlist_set()
 {
-    for (int i = 0; i < 25; i++)
+    for (int i = 0; i < db_count_max; i++)
         uIDlist[i] = 0;
 }
 void uIdlist_insert(int id)
@@ -25,14 +31,14 @@ void uIdlist_insert(int id)
 }
 bool uIDlist_isUnique(int id)
 {
-    for (int i = 0; i < 25; i++)
+    for (int i = 0; i < db_count_max; i++)
     {
         if (uIDlist[i] == id)
             return false;
     }
     return true;
 }
-class DataBase //25 instances
+class DataBase //db_count_max instances
 {
 protected: // protected not private
     string name;
@@ -149,6 +155,7 @@ void Student::create()
     //Student::studentCount++;
     rollNum = ++Student::studentCount;
     cout << " Roll ID assigned : " << rollNum << endl;
+    role = 'S';
     cout << " * STUDENT DATA CREATED SUCCESFULLY \n";
 }
 inline void StudentTable() // small helper function to format output
@@ -274,7 +281,6 @@ void Student::writeToFile_stud(Student StudentObj[])
         file_obj << StudentObj[i].subj1 << " ";
         file_obj << StudentObj[i].subj2 << " ";
         file_obj << StudentObj[i].subj3 << endl;
-        //file_obj.write((char*)&StudentObj[i], sizeof(StudentObj[i]));
     }
     file_obj.close();
 }
@@ -289,18 +295,15 @@ class Faculty : virtual protected DataBase //5 instances //subclass
 protected:
     int salary;
     char dept[3];
-
     int rollNum;
 
 public:
-    //void display();
     static int facultyCount;
     void create();
     void display();
     void printFacultyDB(Faculty *);
     void modify();
     void writeToFile_faculty(Faculty *);
-    // friend void printBasicData(Faculty);
     friend void Student::getFacultyDept(Faculty);
     void getStudentGrades(Student);
 
@@ -359,6 +362,7 @@ void Faculty::create()
     cin >> salary;
     rollNum = ++Faculty::facultyCount;
     cout << " Roll ID assigned : " << rollNum << endl;
+    role = 'F';
     cout << " * FACULTY DATA CREATED SUCCESFULLY \n";
 }
 inline void FacultyTable()
@@ -432,7 +436,7 @@ void Faculty::writeToFile_faculty(Faculty FacultyObj[])
 //integrate to menu
 void Student::getFacultyDept(Faculty obj)
 {
-    cout << "Faculty dept : " << obj.dept << endl;
+    cout << " Faculty dept : " << obj.dept << endl;
 }
 void Faculty::getStudentGrades(Student obj)
 {
@@ -512,6 +516,7 @@ void Masters::create()
     cin >> subj;
     rollNum = ++Masters::masterCount;
     cout << " Roll ID assigned : " << rollNum << endl;
+    role = 'M';
     cout << " * MASTER DATA CREATED SUCCESFULLY \n";
 }
 inline void MasterTable()
@@ -708,7 +713,7 @@ int main()
                     StudentObj[t1 - 1].gradeSummary();
                     break;
                 case 7:
-                    cout << " Enter roll ID for gender : ";
+                    cout << " Enter roll ID for Basic Data : ";
                     cin >> t1;
                     printBasicData(StudentObj[t1 - 1]);
                     break;
