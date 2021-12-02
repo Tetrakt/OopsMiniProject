@@ -48,7 +48,7 @@ protected: // protected not private
     //int rollNum;  //auto generated
     int uniqueID; //given on input
     char role;    // S,F or P
-    DataBase()
+    DataBase()    //default constructor
     {
         name = " ";
         age = 0;
@@ -59,10 +59,10 @@ protected: // protected not private
     }
 
 public:
-    virtual void display() = 0; //pure virtual function
-    virtual void create() = 0;
+    virtual void display() = 0; //pure virtual function, cuz called in
+    virtual void create() = 0;  //student and faculty
     virtual void modify() = 0;
-    void printAll(DataBase *); //todo
+    //void printAll(DataBase *);
 };
 
 class uID_Exception
@@ -106,7 +106,6 @@ public:
     void writeToFile_stud(Student *);
     friend void printBasicData(Student);
     void getFacultyDept(Faculty);
-    //friend void Faculty::getStudentGrades(Student);
     friend class Faculty;
     ~Student()
     {
@@ -665,7 +664,7 @@ int main()
     {
         Masters(1986);
     }
-    int t1, t2, t3;
+    int t1, t2, t3; //temp input variables.
     int ch1 = -1, ch2 = -1;
     cout << "***** University DataBase Management System *****" << endl;
 
@@ -724,7 +723,6 @@ int main()
                     cout << " Enter Professor Roll ID: ";
                     cin >> t1;
                     StudentObj[0].getFacultyDept(FacultyObj[t1 - 1]);
-
                 default:
                     break;
                 }
