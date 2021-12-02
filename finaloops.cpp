@@ -112,12 +112,12 @@ void Student::create()
 {
     int t;
     cout << "\n CREATING A STUDENT..." << endl;
-    cout << "Enter Student Name: ";
+    cout << " Enter Student Name: ";
     cin >> name;
     //enter uniqueID, if not uq, exit this func
     try
     {
-        cout << "\nEnter Unique Student ID : ";
+        cout << "\n Enter Unique Student ID : ";
         cin >> t; // store input temporaily
         if (!uIDlist_isUnique(t))
         {
@@ -148,7 +148,7 @@ void Student::create()
     cin >> subj3;
     //Student::studentCount++;
     rollNum = ++Student::studentCount;
-    cout << "Roll ID assigned : " << rollNum << endl;
+    cout << " Roll ID assigned : " << rollNum << endl;
     cout << " * STUDENT DATA CREATED SUCCESFULLY \n";
 }
 inline void StudentTable() // small helper function to format output
@@ -177,9 +177,9 @@ void Student::modify()
 {
     //Choose basis of roll num?? sent from main()?
     int ch;
-    cout << "*STUDENT TO BE MODIFIED*" << endl;
-    cout << "Name : " << this->name << endl;
-    cout << "\n menu list" << endl;
+    cout << " *STUDENT TO BE MODIFIED*" << endl;
+    cout << " Name : " << this->name << endl;
+    cout << "\n MENU LIST" << endl;
     cout << " 1. Section " << endl;
     cout << " 2. Subject 1 " << endl;
     cout << " 3. Subject 2 " << endl;
@@ -189,31 +189,31 @@ void Student::modify()
     {
     case 1:
     {
-        cout << "Enter new Section : ";
+        cout << " Enter new Section : ";
         cin >> this->section;
     }
     break;
     case 2:
     {
-        cout << "Enter new subject 1 : ";
+        cout << " Enter new subject 1 : ";
         cin >> this->subj1;
     }
     break;
     case 3:
     {
-        cout << "Enter new Subject 2 : ";
+        cout << " Enter new Subject 2 : ";
         cin >> this->subj2;
     }
     break;
     case 4:
     {
-        cout << "Enter new Subject 3 : ";
+        cout << " Enter new Subject 3 : ";
         cin >> this->subj3;
     }
     break;
     default:
     {
-        cout << "Invalid Option, Please try again ";
+        cout << " Invalid Option, Please try again ";
     }
     break;
     }
@@ -250,18 +250,18 @@ void Student::gradeSummary()
     avg = (float)sum / 6;
     gradePercent = (float)sum / 600.0;
     gpa = gradePercent / 10.0;
-    cout << "Grade Summary of Student : " << this->name << endl;
-    cout << "GPA : " << gpa << endl;
-    cout << "Highest Marks : " << max << endl;
-    cout << "Lowest Marks : " << min << endl;
-    cout << "Average Marks : " << avg;
-    cout << "Overall Percentage : " << gradePercent << " % " << endl;
+    cout << " Grade Summary of Student : " << this->name << endl;
+    cout << " GPA : " << gpa << endl;
+    cout << " Highest Marks : " << max << endl;
+    cout << " Lowest Marks : " << min << endl;
+    cout << " Average Marks : " << avg;
+    cout << " Overall Percentage : " << gradePercent << " % " << endl;
 }
 
 void Student::writeToFile_stud(Student StudentObj[])
 {
     ofstream file_obj;                      // Object to write in file
-    file_obj.open("Stud_db.txt", ios::out); // Opening file in append mode
+    file_obj.open("Stud_db.txt", ios::app); // Opening file in append mode
     for (int i = 0; i < Student::studentCount; i++)
     {
         //can replace blank with , to make it a csv
@@ -280,7 +280,7 @@ void Student::writeToFile_stud(Student StudentObj[])
 }
 void printBasicData(Student obj)
 {
-    cout << "Name : " << obj.name << endl;
+    cout << " Name : " << obj.name << endl;
     cout << " Age : " << obj.age << endl;
 }
 
@@ -328,11 +328,11 @@ void Faculty::create()
 {
     int t;
     cout << "\n CREATING A Faculty..." << endl;
-    cout << "Enter Faculty Name: ";
+    cout << " Enter Faculty Name: ";
     cin >> name;
     try
     {
-        cout << "\nEnter Unique Faculty ID : ";
+        cout << "\n Enter Unique Faculty ID : ";
         cin >> t; // store input temporaily
         if (!uIDlist_isUnique(t))
         {
@@ -347,7 +347,7 @@ void Faculty::create()
         cout << "\n ID entered " << e.uID << " already exists.";
         exit(0);
     }
-    cout << "\nEnter age : ";
+    cout << "\n Enter age : ";
     cin >> age;
     cout << "\n Enter Birth Year : ";
     cin >> birthYear;
@@ -358,7 +358,7 @@ void Faculty::create()
     cout << "\n Enter salary : ";
     cin >> salary;
     rollNum = ++Faculty::facultyCount;
-    cout << "Roll ID assigned : " << rollNum << endl;
+    cout << " Roll ID assigned : " << rollNum << endl;
     cout << " * FACULTY DATA CREATED SUCCESFULLY \n";
 }
 inline void FacultyTable()
@@ -383,8 +383,8 @@ void Faculty::printFacultyDB(Faculty FacultyObj[])
 void Faculty::modify()
 {
     int ch;
-    cout << "*Faculty TO BE MODIFIED*" << endl;
-    cout << "Name : " << this->name << endl;
+    cout << " *Faculty TO BE MODIFIED* " << endl;
+    cout << " Name : " << this->name << endl;
     cout << "\n MENU LIST" << endl;
     cout << " 1. Department " << endl;
     cout << " 2. Salary " << endl;
@@ -393,19 +393,19 @@ void Faculty::modify()
     {
     case 1:
     {
-        cout << "Enter new Department : ";
+        cout << " Enter new Department : ";
         cin >> this->dept;
     }
     break;
     case 2:
     {
-        cout << "Enter new Salary : ";
+        cout << " Enter new Salary : ";
         cin >> this->salary;
     }
     break;
     default:
     {
-        cout << "Invalid Option, Please try again ";
+        cout << " Invalid Option, Please try again ";
     }
     break;
     }
@@ -414,7 +414,7 @@ void Faculty::modify()
 void Faculty::writeToFile_faculty(Faculty FacultyObj[])
 {
     ofstream file_obj;                         // Object to write in file
-    file_obj.open("Faculty_db.txt", ios::out); // Opening file in append mode
+    file_obj.open("Faculty_db.txt", ios::app); // Opening file in append mode
     for (int i = 0; i < Faculty::facultyCount; i++)
     {
         file_obj << FacultyObj[i].name << " ";
@@ -480,12 +480,12 @@ void Masters::create()
 {
     int u;
     cout << "\n CREATING A MASTER..." << endl;
-    cout << "Enter Master Name: ";
+    cout << " Enter Master Name: ";
     cin >> name;
     //enter uniqueID, if not uq, exit this func
     try
     {
-        cout << "\nEnter Unique Master ID : ";
+        cout << "\n Enter Unique Master ID : ";
         cin >> u; // store input temporaily
         if (!uIDlist_isUnique(u))
         {
@@ -500,18 +500,18 @@ void Masters::create()
         cout << "\n ID entered " << e.uID << " already exists.";
         exit(0);
     }
-    cout << "\nEnter age : ";
+    cout << "\n Enter age : ";
     cin >> age;
-    cout << "\nEnter Birth Year :";
+    cout << "\n Enter Birth Year :";
     cin >> birthYear;
-    cout << "\nEnter Section : ";
+    cout << "\n Enter Section : ";
     cin >> section;
     cout << "\n Enter gender: ";
     cin >> gender;
     cout << "\n Subject : ";
     cin >> subj;
     rollNum = ++Masters::masterCount;
-    cout << "Roll ID assigned : " << rollNum << endl;
+    cout << " Roll ID assigned : " << rollNum << endl;
     cout << " * MASTER DATA CREATED SUCCESFULLY \n";
 }
 inline void MasterTable()
@@ -539,7 +539,7 @@ void Masters::modify()
     //Choose basis of roll num?? sent from main()?
     int ch;
     cout << "* MASTER TO BE MODIFIED *" << endl;
-    cout << "Name : " << this->name << endl;
+    cout << " Name : " << this->name << endl;
     cout << "\n MENU" << endl;
     cout << " 1. Section " << endl;
     cin >> ch;
@@ -547,13 +547,13 @@ void Masters::modify()
     {
         {
         case 1:
-            cout << "Enter new Section: ";
+            cout << " Enter new Section: ";
             cin >> this->section;
         }
         break;
     default:
     {
-        cout << "Invalid Option";
+        cout << " Invalid Option";
     }
     break;
     }
@@ -568,13 +568,13 @@ void Masters::updateMasterGrade()
     }
     else
     {
-        cout << "Invalid input \n";
+        cout << " Invalid input \n";
     }
 }
 void Masters::writeToFile_masters(Masters MastersObj[])
 {
     ofstream file_obj;                         // Object to write in file
-    file_obj.open("Masters_db.txt", ios::out); // Opening file in append mode
+    file_obj.open("Masters_db.txt", ios::app); // Opening file in append mode
     for (int i = 0; i < Masters::masterCount; i++)
     {
         file_obj << MastersObj[i].name << " ";
@@ -594,7 +594,7 @@ inline void printMenu(int ch)
 {
     if (ch == 1) //student menu
     {
-        cout << "STUDENT MENU : " << endl;
+        cout << "***** STUDENT MENU *****" << endl;
         cout << "1. New Entry" << endl;
         cout << "2. Print All Entries" << endl;
         cout << "3. Print one Entry" << endl; //  input for key
@@ -609,6 +609,7 @@ inline void printMenu(int ch)
     else if (ch == 2)
     {
         //faculty menu
+        cout << "***** Faculty Menu *****" << endl;
         cout << "1. New Entry" << endl;
         cout << "2. Print All Entries" << endl;
         cout << "3. Print One Entry" << endl;
@@ -620,7 +621,7 @@ inline void printMenu(int ch)
     else if (ch == 3)
     {
         //phd menu
-        cout << "PHD MENU " << endl;
+        cout << "***** PHD MENU *****" << endl;
         cout << "1. New Entry" << endl;
         cout << "2. Print All Entries" << endl;
         cout << "3. Print one Entry" << endl; //  input for key
@@ -634,7 +635,7 @@ inline void printMenu(int ch)
 inline void printMenu() //db menu, student or faculty
 {
     //student, faculty or phd
-    cout << "University DataBase System" << endl;
+    cout << "***** University DataBase Menu *****" << endl;
     cout << " 1. Student db" << endl;
     cout << " 2. Faculty db" << endl;
     cout << " 3. PHD db" << endl;
@@ -661,7 +662,7 @@ int main()
     }
     int t1, t2, t3;
     int ch1 = -1, ch2 = -1;
-    cout << "University DataBase Management System" << endl;
+    cout << "***** University DataBase Management System *****" << endl;
 
     printMenu();
     cin >> ch1;
@@ -686,28 +687,28 @@ int main()
                     StudentObj->printStudentDB(StudentObj); //pass array of objs
                     break;
                 case 3:
-                    cout << "Enter Roll Number 1 to student count : ";
+                    cout << " Enter Roll Number 1 to student count : ";
                     cin >> t1;
                     //StudentObj->displayStudent(StudentObj[t1 - 1]); //t1-1 as roll num from 1, but array from 0
                     StudentTable();
                     StudentObj[t1 - 1].display();
                     break;
                 case 4:
-                    cout << "Enter Roll Number to modify : ";
+                    cout << " Enter Roll Number to modify : ";
                     cin >> t1;
                     StudentObj[t1 - 1].modify();
                 case 5:
-                    cout << "Enter roll id to update grades : ";
+                    cout << " Enter roll id to update grades : ";
                     cin >> t1;
                     StudentObj[t1 - 1].updateGrades();
                     break;
                 case 6:
-                    cout << "Enter roll id for grade Summary : ";
+                    cout << " Enter roll id for grade Summary : ";
                     cin >> t1;
                     StudentObj[t1 - 1].gradeSummary();
                     break;
                 case 7:
-                    cout << "Enter roll ID for gender : ";
+                    cout << " Enter roll ID for gender : ";
                     cin >> t1;
                     printBasicData(StudentObj[t1 - 1]);
                     break;
@@ -715,7 +716,7 @@ int main()
                     StudentObj->writeToFile_stud(StudentObj);
                     break;
                 case 9:
-                    cout << "Enter Professor Roll ID: ";
+                    cout << " Enter Professor Roll ID: ";
                     cin >> t1;
                     StudentObj[0].getFacultyDept(FacultyObj[t1 - 1]);
 
@@ -741,13 +742,13 @@ int main()
                     FacultyObj->printFacultyDB(FacultyObj);
                     break;
                 case 3:
-                    cout << "Enter Faculty roll number : ";
+                    cout << " Enter Faculty roll number : ";
                     cin >> t1;
                     FacultyTable();
                     FacultyObj[t1 - 1].display();
                     break;
                 case 4:
-                    cout << "Enter Roll number to modify : ";
+                    cout << " Enter Roll number to modify : ";
                     cin >> t1;
                     FacultyObj[t1 - 1].modify();
                     break;
@@ -756,7 +757,7 @@ int main()
                     break;
                 case 6:
                     //grade summary of student
-                    cout << "Enter Roll number of Student: ";
+                    cout << " Enter Roll number of Student: ";
                     cin >> t1;
                     FacultyObj[0].getStudentGrades(StudentObj[t1 - 1]);
                     break;
@@ -782,23 +783,23 @@ int main()
                     MasterObj->printMasterDB(MasterObj); //pass array of objs
                     break;
                 case 3:
-                    cout << "Enter Roll Number 1 to master count : ";
+                    cout << " Enter Roll Number 1 to master count : ";
                     cin >> t1;
                     //MasterObj->displayMaster(MasterObj[t1 - 1]); //t1-1 as roll num from 1, but array from 0
                     MasterTable();
                     MasterObj[t1 - 1].display();
                     break;
                 case 4:
-                    cout << "Enter Roll Number to modify : ";
+                    cout << " Enter Roll Number to modify : ";
                     cin >> t1;
                     MasterObj[t1 - 1].modify();
                 case 5:
-                    cout << "Enter roll id to update grades : ";
+                    cout << " Enter roll id to update grades : ";
                     cin >> t1;
                     MasterObj[t1 - 1].updateMasterGrade();
                     break;
                 case 6:
-                    cout << "Enter roll ID for SOMETHING : ";
+                    cout << " Enter roll ID for SOMETHING : ";
                     cin >> t1;
                     //printGender(MasterObj[t1 - 1]); FIX THIS BIT
                     break;
