@@ -299,7 +299,7 @@ public:
     void printFacultyDB(Faculty *);
     void modify();
     void writeToFile_faculty(Faculty *);
-    friend void printBasicData(Faculty);
+    // friend void printBasicData(Faculty);
     friend void Student::getFacultyDept(Faculty);
     void getStudentGrades(Student);
 
@@ -426,11 +426,6 @@ void Faculty::writeToFile_faculty(Faculty FacultyObj[])
     }
     file_obj.close();
 }
-void printBasicData(Faculty obj)
-{
-    cout << "Name : " << obj.name << endl;
-    cout << "Department : " << obj.dept << endl;
-}
 
 //FS LINKING friend functions.
 //integrate to menu
@@ -441,6 +436,7 @@ void Student::getFacultyDept(Faculty obj)
 void Faculty::getStudentGrades(Student obj)
 {
     //grade summary?
+    obj.gradeSummary();
 }
 
 class Masters : public Student, public Faculty
@@ -606,6 +602,7 @@ inline void printMenu(int ch)
         cout << "6. Grade summary" << endl;
         cout << "7. Print Public Data" << endl;
         cout << "8. Update database to file" << endl;
+        cout << "9. Profesor Department" << endl;
         cout << "0. Exit " << endl;
     }
     else if (ch == 2)
@@ -616,6 +613,7 @@ inline void printMenu(int ch)
         cout << "3. Print One Entry" << endl;
         cout << "4. Modify Entry" << endl;
         cout << "5. Update database to file" << endl;
+        cout << "6. Grade Summary of Student" << endl;
         cout << "0. Exit" << endl;
     }
     else if (ch == 3)
@@ -715,6 +713,11 @@ int main()
                 case 8:
                     StudentObj->writeToFile_stud(StudentObj);
                     break;
+                case 9:
+                    cout << "Enter Professor Roll ID: ";
+                    cin >> t1;
+                    StudentObj[0].getFacultyDept(FacultyObj[t1 - 1]);
+
                 default:
                     break;
                 }
@@ -747,13 +750,14 @@ int main()
                     cin >> t1;
                     FacultyObj[t1 - 1].modify();
                     break;
-                case 8:
+                case 5:
                     FacultyObj->writeToFile_faculty(FacultyObj);
                     break;
-                case 9:
-                    cout << "Enter Roll ID";
+                case 6:
+                    //grade summary of student
+                    cout << "Enter Roll number of Student: ";
                     cin >> t1;
-                    printBasicData(FacultyObj[t1 - 1]);
+                    FacultyObj[0].getStudentGrades(StudentObj[t1 - 1]);
                     break;
                 default:
                     break;
