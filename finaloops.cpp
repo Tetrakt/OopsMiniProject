@@ -1,8 +1,8 @@
 /* TARUN TALREJA 180907632
-*  KRISHNA JAYKUMAR 180907
-*  RITHIKA IYER 18090
-*  CHINTAN ROUT 18090
-*  PARTH SIROHI 18090
+*  KRISHNA JAYKUMAR 180907754
+*  RITHIKA IYER 180907520
+*  CHINTAN ROUT 180907544
+*  PARTH SIROHI 180907516
 */
 #include <iostream>
 #include <string.h>
@@ -135,7 +135,7 @@ void Student::create()
     catch (uID_Exception e)
     {
         cout << "\n ID entered " << e.uID << " already exists.";
-        exit(0);
+        return;
     }
     cout << "\n Enter age : ";
     cin >> age;
@@ -347,7 +347,7 @@ void Faculty::create()
     catch (uID_Exception e)
     {
         cout << "\n ID entered " << e.uID << " already exists.";
-        exit(0);
+        return;
     }
     cout << "\n Enter age : ";
     cin >> age;
@@ -501,7 +501,7 @@ void Masters::create()
     catch (uID_Exception e)
     {
         cout << "\n ID entered " << e.uID << " already exists.";
-        exit(0);
+        return;
     }
     cout << "\n Enter age : ";
     cin >> age;
