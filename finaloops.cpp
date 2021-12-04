@@ -313,7 +313,7 @@ public:
         gender = ' ';
         birthYear = 0000;
         dept[0] = dept[1] = dept[2] = 'A';
-        salary = 0;
+        salary = 30000;
     }
     Faculty(int salary)
     {
@@ -357,8 +357,6 @@ void Faculty::create()
     cin >> gender;
     cout << "\n Department : ";
     cin >> dept;
-    cout << "\n Enter salary : ";
-    cin >> salary;
     rollNum = ++Faculty::facultyCount;
     cout << " Roll ID assigned : " << rollNum << endl;
     role = 'F';
@@ -366,7 +364,7 @@ void Faculty::create()
 }
 inline void FacultyTable()
 {
-    cout << "Name Unique ID RollNum Age Section Gender Department  Subject1" << endl;
+    cout << "Name Unique ID Age Gender Department Salary" << endl;
 }
 void Faculty::display()
 {
@@ -803,12 +801,12 @@ int main()
                     MasterObj[t1 - 1].updateMasterGrade();
                     break;
                 case 6:
-                    cout << " Enter roll ID for SOMETHING : ";
+                    cout << " Enter roll ID for Basic Data : ";
                     cin >> t1;
-                    //printGender(MasterObj[t1 - 1]); FIX THIS BIT
+                    printBasicData(MasterObj[t1 - 1]);
                     break;
                 case 7:
-                    MasterObj->writeToFile_stud(MasterObj);
+                    MasterObj->writeToFile_masters(MasterObj);
                     break;
                 default:
                     break;
