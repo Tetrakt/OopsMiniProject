@@ -77,7 +77,7 @@ public:
 
 class Student : virtual protected DataBase //20 instances, subclass
 {
-private:
+protected:
     char section;
     int grades[6];
     string subj1, subj2, subj3;
@@ -446,7 +446,7 @@ void Faculty::getStudentGrades(Student obj)
 class Masters : public Student, public Faculty
 {
 private:
-    char section;
+    // char section;
     int grade;
     char subj[3];      //masters to be done in 1 subj only
     const int batchyr; //batch year
@@ -458,7 +458,7 @@ public:
     Masters() : batchyr(14) // default constructor + init list
     {
         age = 0;
-        section = ' '; // one param
+        section = ' '; // Inherted from Student
         gender = ' ';
         subj[3] = 'A';
     }
@@ -520,7 +520,7 @@ void Masters::create()
 }
 inline void MasterTable()
 {
-    cout << "Name Unique ID RollNum Age Section Gender Subject" << endl;
+    cout << "Name Unique ID RollNum Age Section Gender Subject Salary" << endl;
 }
 void Masters::display()
 {
@@ -530,7 +530,8 @@ void Masters::display()
     cout << "\t" << this->age;
     cout << "\t" << this->section;
     cout << "\t" << this->gender;
-    cout << "\t" << this->subj << endl;
+    cout << "\t" << this->subj;
+    cout << "\t" << this->salary << endl;
 }
 void Masters::printMasterDB(Masters MastersObj[])
 {
